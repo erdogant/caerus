@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
-     install_requires=['numpy','pandas'],
+     install_requires=['numpy','pandas','tqdm','matplotlib'],
      name='caerus',  
      version='0.1',
      author="Erdogan Taskesen",

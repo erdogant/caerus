@@ -80,10 +80,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from ethelpers.showprogress import showprogress
-from ethelpers.ones2idx import ones2region, idx2region, region2idx
-from STOCKS.risk_performance_metrics import risk_performance_metrics
-import percentage as percentage
+from tqdm import tqdm
+from helpers.ones2idx import ones2region, idx2region, region2idx
+from helpers.risk_performance_metrics import risk_performance_metrics
+import helpers.percentage as percentage
 
 #%% Detection of optimal localities for investments
 def caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, showplot=True, verbose=3):
@@ -184,10 +184,9 @@ def compute_region_scores(df, window=1000, verbose=1):
 
     # Reverse dataframe to create forward-rolling window
     df=df[::-1]
-    for i in range(2,window):
+    for i in tqdm(range(2,window)):
         dfperc = df.rolling(i).apply(compute_percentage)[::-1] #.values.flatten()
         out[i]=dfperc
-        if verbose>=3: showprogress(i,window)
     
     out[np.isinf(out)]=np.nan
     # out.fillna(value=0, inplace=True)
@@ -317,7 +316,7 @@ def caerus_gridserch(df, window=None, perc=None, threshold=0.25, showplot=True, 
     out_trades  = np.zeros((len(perc),len(windows)))
 
     for k in range(0,len(windows)):
-        for i in range(0,len(perc)):
+        for i in tqdm(range(0,len(perc))):
             # Compute start-stop locations
             getregions=caerus(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, showplot=False, verbose=0)
             # Store
@@ -336,8 +335,6 @@ def caerus_gridserch(df, window=None, perc=None, threshold=0.25, showplot=True, 
             ax1.plot(perc,out_balance[:,k], label='window_'+str(windows[k]))
             ax2.plot(perc,out_trades[:,k], label='window_'+str(windows[k]))
 
-        # showprogress
-        showprogress(k,len(windows))
 
     if showplot:
         ax1.legend()

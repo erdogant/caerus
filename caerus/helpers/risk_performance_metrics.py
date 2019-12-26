@@ -16,7 +16,7 @@
 # invested: moment of investement [True or False]
 #%% Libraries
 import numpy as np
-from ethelpers.ones2idx import ones2region
+from helpers.ones2idx import ones2region
 #import log
 
 #%%
