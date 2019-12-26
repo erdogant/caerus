@@ -3,15 +3,15 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
-     install_requires=['numpy','pandas','tqdm','matplotlib'],
+     install_requires=['numpy<=1.18','pandas','tqdm','matplotlib'],
      name='caerus',  
-     version='0.1',
+     version='0.1.0',
      author="Erdogan Taskesen",
      author_email="erdogant@gmail.com",
      description="Detection of favorable moments",
      long_description=long_description,
      long_description_content_type="text/markdown",
-     url="https://github.com/erdoganta/CAERUS",
+     url="https://github.com/erdoganta/caerus",
      packages=setuptools.find_packages(),
 	 include_package_data=True,
      classifiers=[

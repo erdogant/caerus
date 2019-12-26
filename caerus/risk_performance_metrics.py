@@ -16,8 +16,7 @@
 # invested: moment of investement [True or False]
 #%% Libraries
 import numpy as np
-from helpers.ones2idx import ones2region
-#import log
+from caerus.ones2idx import ones2region
 
 #%%
 def risk_performance_metrics(perf):

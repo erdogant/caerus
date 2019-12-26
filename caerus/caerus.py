@@ -1,7 +1,8 @@
 """ This function determines the local minima with the corresponding local-maxima within the given time-frame
+	from caerus import caerus
 
-	A = caerus(df, <optional>)
-	A = caerus_gridserch(df, <optional>)
+	A = caerus.caerus(df, <optional>)
+	A = caerus.gridserch(df, <optional>)
 
  INPUT:
    data:           dataframe [nx1]
@@ -44,21 +45,21 @@
 
  EXAMPLE
     %reset -f
-    from STATS.caerus import caerus, caerus_gridserch
-    import GENERAL.picklefast as picklefast
+    from caerus import caerus
+    import ethelpers.picklefast as picklefast
     import numpy as np
 
     df = picklefast.load('../DATA/STOCK/btcyears.pkl')['Close']
     df = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
-    out=caerus(df, window=50, minperc=3, threshold=0.25, nlargest=10)
+    out=caerus.caerus(df, window=50, minperc=3, threshold=0.25, nlargest=10)
 
     # Best parameters
-    [out_balance, out_trades]=caerus_gridserch(df)
+    [out_balance, out_trades]=caerus.gridsearch(df)
 
     # Shuffle
-    df = picklefast.load('D://stack/TOOLBOX_PY/DATA/STOCK/btc1h.pkl')['close']
+    df = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
     np.random.shuffle(df)
-    outNull=caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25)
+    outNull=caerus.caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25)
     plt.figure();plt.hist(outNull['agg'], bins=50)
     Praw=hypotesting(out['agg'], outNull['agg'], showfig=0, bound='up')['Praw']
     model=distfit(outNull['agg'], showfig=1, alpha=0.05)[0]
@@ -81,11 +82,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from helpers.ones2idx import ones2region, idx2region, region2idx
-from helpers.risk_performance_metrics import risk_performance_metrics
-import helpers.percentage as percentage
+# Custom helpers
+from caerus.ones2idx import ones2region, idx2region, region2idx
+from caerus.risk_performance_metrics import risk_performance_metrics
 
-#%% Detection of optimal localities for investments
+#%% main - Detection of optimal localities for investments
 def caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, showplot=True, verbose=3):
     Param = dict()
     Param['verbose']   = verbose
@@ -184,7 +185,7 @@ def compute_region_scores(df, window=1000, verbose=1):
 
     # Reverse dataframe to create forward-rolling window
     df=df[::-1]
-    for i in tqdm(range(2,window)):
+    for i in tqdm(range(2,window), disable=(True if verbose==0 else False)):
         dfperc = df.rolling(i).apply(compute_percentage)[::-1] #.values.flatten()
         out[i]=dfperc
     
@@ -298,11 +299,11 @@ def makefig(df, loc_start, loc_stop, loc_start_best, loc_stop_best, out, thresho
 
 #%% Compute percentage
 def compute_percentage(r):
-    perc=percentage.getdiff(r[0],r[-1])
+    perc=percentage_getdiff(r[0],r[-1])
     return(perc) 
 
 #%% Perform gridsearch to determine best parameters
-def caerus_gridserch(df, window=None, perc=None, threshold=0.25, showplot=True, verbose=3):
+def gridsearch(df, window=None, perc=None, threshold=0.25, showplot=True, verbose=3):
     if verbose>=3: print('[CAERUS] Gridsearch..')
 
     if isinstance(window, type(None)):
@@ -315,8 +316,8 @@ def caerus_gridserch(df, window=None, perc=None, threshold=0.25, showplot=True, 
     out_balance = np.zeros((len(perc),len(windows)))
     out_trades  = np.zeros((len(perc),len(windows)))
 
-    for k in range(0,len(windows)):
-        for i in tqdm(range(0,len(perc))):
+    for k in tqdm(range(0,len(windows)), disable=(True if verbose==0 else False)):
+        for i in range(0,len(perc)):
             # Compute start-stop locations
             getregions=caerus(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, showplot=False, verbose=0)
             # Store
@@ -349,3 +350,17 @@ def caerus_gridserch(df, window=None, perc=None, threshold=0.25, showplot=True, 
     out_balance  = pd.DataFrame(index=perc, data=out_balance, columns=windows)
     out_trades   = pd.DataFrame(index=perc, data=out_trades, columns=windows)
     return(out_balance, out_trades)
+
+#%% Compute percentage between current price and starting price
+def percentage_getdiff(current_price, previous_price):
+    assert isinstance(current_price, float)
+    assert isinstance(previous_price, float)
+
+    if current_price>previous_price:
+        # Increase
+        diff_perc=(current_price-previous_price)/previous_price*100
+    else:
+        # Decrease
+        diff_perc=-(previous_price-current_price)/previous_price*100
+    
+    return(diff_perc)
