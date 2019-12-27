@@ -7,7 +7,7 @@ Detection of local minima with the corresponding local maxima within the given t
 
 Caerus is a python package that detects points in time that are most probable local minima and local maxima. As an example is shown the last 300 days of BTC. Green are the local minima and red are the local maxima.
 <p align="center">
-  <img src="docs/figs/figure_btc_last_300days.png" width="600" />
+  <img src="docs/figs/figure_btc_last_300days.png" width="900" />
 </p>
 
 This package determines the local-minima with the corresponding local-maxima within the given time-frame.
@@ -56,7 +56,7 @@ fig = cs.makefig(out)
 ```
 The output looks as below:
 <p align="center">
-  <img src="docs/figs/figure_fb.png" width="600" />
+  <img src="docs/figs/figure_fb.png" width="900" />
 </p>
 
 
@@ -67,11 +67,11 @@ fig = cs.makefig(out)
 ```
 The output looks as below:
 <p align="center">
-  <img src="docs/figs/figure_btc.png" width="600" />
+  <img src="docs/figs/figure_btc.png" width="900" />
 </p>
 
 
-- Gridsearch to determine optimal window, minimum percentage and threshold
+- Gridsearch walks over the windows and over the percentages to determine optimal window, minimum percentage and the threshold.
 ```python
 df = pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/btc.csv')['close']
 out = cs.gridsearch(df)
@@ -79,8 +79,7 @@ out = cs.gridsearch(df)
 
 The output looks as below:
 <p align="center">
-  <img src="examples/karateclub/d3graph_1.png" width="300" />
-  <img src="examples/karateclub/d3graph_2.png" width="300" />
+  <img src="docs/figs/figure_gridsearch_btc.png" width="900" />
 </p>
 
 
