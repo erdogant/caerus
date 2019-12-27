@@ -52,6 +52,10 @@ df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/fb.csv')['c
 out = cs.fit(df)
 fig = cs.makefig(out)
 ```
+The input is a pandas dataframe or series and looks like this:
+<p align="center">
+  <img src="docs/figs/input_example.png" width="300" />
+</p>
 The output looks as below:
 <p align="center">
   <img src="docs/figs/figure_fb.png" width="900" />
