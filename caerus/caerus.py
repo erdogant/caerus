@@ -357,7 +357,7 @@ def gridsearch(df, window=None, perc=None, threshold=0.25, showplot=True, verbos
     for k in tqdm(range(0,len(windows)), disable=(True if verbose==0 else False)):
         for i in range(0,len(perc)):
             # Compute start-stop locations
-            getregions=fit(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, showplot=False, verbose=0)
+            getregions=fit(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, verbose=0)
             # Store
             perf=pd.DataFrame()
             perf['portfolio_value'] = df.values.copy()
