@@ -5,10 +5,9 @@ Detection of local minima with the corresponding local maxima within the given t
 [![PyPI Version](https://img.shields.io/pypi/v/caerus)](https://pypi.org/project/caerus/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/erdoganta/caerus/blob/master/LICENSE)
 
-caerus is a python package that detects points in time that are most probable local minima and local maxima.
-
+caerus is a python package that detects points in time that are most probable local minima and local maxima. As an example is shown the last 300 days of BTC:
 <p align="center">
-  <img src="examples/figure_1.png" width="600" />
+  <img src="docs/figs/figure_btc_last_300days.png" width="600" />
 </p>
 
 About the name
@@ -46,44 +45,42 @@ python setup.py install
 - Import caerus method
 
 ```python
-from caerus import caerus
+import caerus as cs
 ```
 
 - Simple example with constant window, minimum percentage and threshold
 ```python
-df = picklefast.load('../DATA/STOCK/btcyears.pkl')['Close']
-out = caerus.caerus(df, window=50, minperc=3, threshold=0.25, nlargest=10)
+df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/fb.csv')['close']
+out = cs.fit(df)
+fig = cs.makefig(out)
+
+df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/btc.csv')['Close']
+out = cs.fit(df)
+fig = cs.makefig(out)
 ```
 
 The output looks as below:
-
 <p align="center">
-  <img src="examples/karateclub/d3graph_1.png" width="300" />
-  <img src="examples/karateclub/d3graph_2.png" width="300" />
+  <img src="docs/figs/figure_fb.png" width="600" />
+  <img src="docs/figs/figure_btc.png" width="600" />
 </p>
 
 
 - Gridsearch to determine optimal window, minimum percentage and threshold
 ```python
-df = picklefast.load('../DATA/STOCK/btcyears.pkl')['Close']
-out = caerus.gridsearch(df)
+df = pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/btc.csv')['close']
+out = cs.gridsearch(df)
 ```
 
 The output looks as below:
-
 <p align="center">
   <img src="examples/karateclub/d3graph_1.png" width="300" />
   <img src="examples/karateclub/d3graph_2.png" width="300" />
 </p>
 
 
-
-## Contribute
-We welcome all kinds of contributions.
-See the [Contribution](CONTRIBUTING.md) guide for more details.
-
 ## Citation
-Please cite d3graph in your publications if this is useful for your research. Here is an example BibTeX entry:
+Please cite caerus in your publications if this is useful for your research. Here is an example BibTeX entry:
 ```BibTeX
 @misc{erdoganta2019caerus,
   title={caerus},
