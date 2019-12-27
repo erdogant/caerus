@@ -1,8 +1,8 @@
+# CAERUS
 [![Build Status](https://travis-ci.org/erdoganta/caerus.svg?branch=master)](https://travis-ci.org/erdoganta/caerus)
 [![PyPI Version](https://img.shields.io/pypi/v/caerus)](https://pypi.org/project/caerus/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/erdoganta/caerus/blob/master/LICENSE)
 
-# CAERUS
 Detection of local minima with the corresponding local maxima within the given time-frame
 
 Caerus is a python package that detects points in time that are most probable local minima and local maxima. As an example is shown the last 300 days of BTC. Green are the local minima and red are the local maxima.
