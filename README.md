@@ -53,8 +53,8 @@ out = cs.fit(df)
 fig = cs.makefig(out)
 ```
 The input is a pandas dataframe or series and looks like this:
-<p align="center">
-  <img src="docs/figs/input_example.png" width="90" />
+<p align="left">
+  <img src="docs/figs/input_example.png" width="110" />
 </p>
 The output looks as below:
 <p align="center">
