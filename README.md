@@ -81,7 +81,7 @@ out = cs.gridsearch(df)
 
 The output looks as below:
 <p align="center">
-  <img src="docs/figs/figure_gridsearch_btc.png" width="300" />
+  <img src="docs/figs/figure_gridsearch_btc.png" width="600" />
 </p>
 
 
