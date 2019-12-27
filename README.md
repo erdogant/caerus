@@ -12,12 +12,9 @@ Caerus is a python package that detects points in time that are most probable lo
 
 This package determines the local-minima with the corresponding local-maxima within a given time-frame and can therefore also easily detect differences across time without any normalization procedures. The method is as following; in a forward rolling window, thousands of windows are iteratively created and for each window a percentage score is computed from the start-to-stop position. For resulting matrix [window x length dataframe], only the high scoring percentages, e.g. those above a certain value (minperc) are used. The cleaned matrix is then aggregated by sum per time-point followed by a cut using the threshold. The resulting regions are subsequently detected, and represent the starting-locations of the trade. The stop-locations are determined based on the distance and percentage of te start-locations. As an example, if you want to have best regions, use threshold=1, minperc=high and nlargest=1 (small).
 
-## About the name
+### About the name
 In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments. 
 He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
-
-caerus is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
-It is distributed under the Apache 2.0 license.
 
 ## Contents
 - [Installation](#%EF%B8%8F-installation)
@@ -28,7 +25,9 @@ It is distributed under the Apache 2.0 license.
 - [License](#-copyright)
 
 ## Installation
-* Install caerus from PyPI (recommended):
+* Install caerus from PyPI (recommended). caerus is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
+It is distributed under the Apache 2.0 license.
+
 ```
 pip install caerus
 ```
