@@ -1,8 +1,9 @@
 """ This function determines the local minima with the corresponding local-maxima within the given time-frame
-	from caerus import caerus
+	import caerus as cs
 
-	A = caerus.caerus(df, <optional>)
-	A = caerus.gridserch(df, <optional>)
+	out    = cs.fit(df, <optional>)
+	out_gs = cs.gridserch(df, <optional>)
+	fig    = cs.makefig(out, <optional>)
 
  INPUT:
    data:           dataframe [nx1]
@@ -34,24 +35,29 @@
     In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments. 
     He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
 
-    This function determines the local-minima with the corresponding local-maxima within the given time-frame.
-    The method is as following; in a forward rolling window, thousands of windows are 
-    iteratively created and for each window a percentage score is computed from the start-to-stop position.
-    For resulting matrix [window x length dataframe], only the high scoring percentages, e.g. those above a certain value (minperc) are used.
-    The cleaned matrix is then aggregated by sum per time-point followed by a cut using the threshold.
-    The resulting regions are subsequently detected, and represent the starting-locations of the trade.
-    The stop-locations are determined based on the distance and percentage of te start-locations.
-    As an example, if you want to have best regions, use threshold=1, minperc=high and nlargest=1 (small)
+	**caerus** is a Python package providing that determines the local-minima with 
+	the corresponding local-maxima within the given time-frame. The method is build
+	using a forward rolling window to iteratively evaluate thousands of windows. 
+	For each window a score of percentages is computed from the start-to-stop 
+	position. The resulting matrix is a [window x length dataframe] for which only 
+	the high scoring percentages, e.g. those above a certain value (minperc) are 
+	used. The best scoring percentages is then aggregated by sum per time-point 
+	followed by a cut using the threshold. The resulting regions are subsequently 
+	detected, and represent the starting-locations of the trade. The stop-locations 
+	are determined based on the distance and percentage of te start-locations.
+	As an example, if you want to have best regions, use threshold=1, minperc=high 
+	and nlargest=1 (small).
 
  EXAMPLE
     %reset -f
-    from caerus import caerus
-    import ethelpers.picklefast as picklefast
+    import caerus as cs
+    import etlearn.picklefast as picklefast
     import numpy as np
 
-    df = picklefast.load('../DATA/STOCK/btcyears.pkl')['Close']
-    df = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
-    out=caerus.caerus(df, window=50, minperc=3, threshold=0.25, nlargest=10)
+    df  = picklefast.load('../DATA/STOCK/btcyears.pkl')['Close']
+    df  = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
+    out = cs.fit(df, window=50, minperc=3, threshold=0.25, nlargest=10)
+    fig = cs.makefig(out)
 
     # Best parameters
     [out_balance, out_trades]=caerus.gridsearch(df)
@@ -59,7 +65,7 @@
     # Shuffle
     df = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
     np.random.shuffle(df)
-    outNull=caerus.caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25)
+    outNull=cs.fit(df, window=50, minperc=3, nlargest=10, threshold=0.25)
     plt.figure();plt.hist(outNull['agg'], bins=50)
     Praw=hypotesting(out['agg'], outNull['agg'], showfig=0, bound='up')['Praw']
     model=distfit(outNull['agg'], showfig=1, alpha=0.05)[0]
@@ -87,7 +93,7 @@ from caerus.ones2idx import ones2region, idx2region, region2idx
 from caerus.risk_performance_metrics import risk_performance_metrics
 
 #%% main - Detection of optimal localities for investments
-def caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, showplot=True, verbose=3):
+def fit(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, verbose=3):
     Param = dict()
     Param['verbose']   = verbose
     Param['window']    = window
@@ -108,20 +114,20 @@ def caerus(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=1
     # reset index
     df.reset_index(drop=True, inplace=True)
     # Run over all windows
-    out = compute_region_scores(df, window=Param['window'], verbose=Param['verbose'])
+    simmat = compute_region_scores(df, window=Param['window'], verbose=Param['verbose'])
     # Keep only percentages above minimum
-    out = out[out>Param['minperc']]
+    simmat = simmat[simmat>Param['minperc']]
     # Find local minima-start-locations
-    [loc_start, outagg] = regions_detect_start(out, Param['minperc'], Param['threshold'], extb=Param['extb'], extf=Param['extf'])
+    [loc_start, outagg] = regions_detect_start(simmat, Param['minperc'], Param['threshold'], extb=Param['extb'], extf=Param['extf'])
     # Find regions that are local optima for the corrersponding local-minima
-    loc_stop = regions_detect_stop(out, loc_start, Param['nlargest'], extb=Param['extb'], extf=Param['extf'], verbose=Param['verbose'])
+    loc_stop = regions_detect_stop(simmat, loc_start, Param['nlargest'], extb=Param['extb'], extf=Param['extf'], verbose=Param['verbose'])
     # Find regions that are local optima for the corrersponding local-minima
     [loc_start_best, loc_stop_best] = get_locs_best(df, loc_start, loc_stop)
-    # Make figure
-    if showplot:
-        makefig(df, loc_start, loc_stop, loc_start_best, loc_stop_best, out, threshold=Param['threshold'])
 
     out=dict()
+    out['df']=df
+    out['Param']=Param
+    out['simmat']=simmat
     out['loc_start']=loc_start
     out['loc_stop']=loc_stop
     out['loc_start_best']=loc_start_best
@@ -135,7 +141,7 @@ def get_locs_best(df, loc_start, loc_stop):
     loc_start_best=np.zeros(len(loc_start)).astype(int)
     loc_stop_best=np.zeros(len(loc_start)).astype(int)
     for i in range(0,len(loc_start)):
-        loc_start_best[i]=df.iloc[loc_start[i][0]:loc_start[i][1]+1].argmin()
+        loc_start_best[i]=df.iloc[loc_start[i][0]:loc_start[i][1]+1].idxmin()
 
         tmpvalue=pd.DataFrame()
         for k in range(0,len(loc_stop[i])):
@@ -175,7 +181,7 @@ def regions_merge(data, extb=5, extf=5):
     return(out)
 
 #%% Compute scores using a forward rolling window
-def compute_region_scores(df, window=1000, verbose=1):
+def compute_region_scores(df, window=1000, verbose=3):
     # Compute percentage score for each 
     # 1. Window
     # 2. Position
@@ -186,7 +192,7 @@ def compute_region_scores(df, window=1000, verbose=1):
     # Reverse dataframe to create forward-rolling window
     df=df[::-1]
     for i in tqdm(range(2,window), disable=(True if verbose==0 else False)):
-        dfperc = df.rolling(i).apply(compute_percentage)[::-1] #.values.flatten()
+        dfperc = df.rolling(i).apply(compute_percentage, raw=True)[::-1] #.values.flatten()
         out[i]=dfperc
     
     out[np.isinf(out)]=np.nan
@@ -265,20 +271,45 @@ def regions_detect_stop(out, locs_start, nlargest, extb=5, extf=5, verbose=0):
     return(locs_stop)
 
 #%% Make final figure
-def makefig(df, loc_start, loc_stop, loc_start_best, loc_stop_best, out, threshold=0.3):
-    [fig,(ax1,ax2,ax3)]=plt.subplots(3,1)
+def makefig(out, threshold=0.25, figsize=[25,15]):
+    df = out['df']
+    loc_start = out['loc_start']
+    loc_stop = out['loc_stop']
+    loc_start_best = out['loc_start_best']
+    loc_stop_best = out['loc_stop_best']
+    simmat = out['simmat']
+    threshold = out['Param']['threshold']
+    # agg = out['agg']
+    
+    [fig,(ax1,ax2,ax3)]=plt.subplots(3,1, figsize=figsize)
     # Make heatmap
-    ax1.matshow(out.T)
+    ax1.matshow(np.flipud(simmat.T))
     ax1.set_aspect('auto')
     # ax1.gca().set_aspect('auto')
-    ax1.grid(True)
+    ax1.grid(False)
+    ax1.set_ylabel('Perc.difference in window\n(higher=better)')
+    ax1.set_xlim(0,simmat.shape[0])
+    
+    xlabels = simmat.columns.values.astype(str)
+    I=np.mod(simmat.columns.values,10)==0
+    xlabels[I==False]=''
+    xlabels[-1]=simmat.columns.values[-1].astype(str)
+    xlabels[0]=simmat.columns.values[0].astype(str)
+    ax1.set_yticks(range(0,len(xlabels)))
+    ax1.set_yticklabels(np.flipud(xlabels))
+    ax1.grid(True, axis='x')
     
     # make aggregated figure
     # Normalized successes across the n windows for percentages above minperc.
     # 1 depicts that for location i, all of the 1000 windows of different length was succesfull in computing a percentage above minperc
-    [outagg, I] = agg_scores(out, threshold)
+    [outagg, I] = agg_scores(simmat, threshold)
     ax2.plot(outagg)
     ax2.grid(True)
+    ax2.set_ylabel('Cummulative\n#success windows')
+    ax2.set_xlim(0,simmat.shape[0])
+    ax2.hlines(threshold,0,simmat.shape[0], linestyles='--',  colors='r')
+    ax2.vlines(loc_start_best,0,1, linestyles='--',  colors='g')
+    ax2.vlines(loc_stop_best,0,1, linestyles='--',  colors='r')
 
     # Plot local minima-maxima
     ax3.plot(df.iloc[loc_start_best],'og', linewidth=1)
@@ -292,10 +323,17 @@ def makefig(df, loc_start, loc_stop, loc_start_best, loc_stop_best, out, thresho
         # ax3.plot(df.iloc[loc_stop[i]], 'or', linewidth=2)
         for k in range(0,len(loc_stop[i])):
             ax3.plot(df.iloc[np.arange(loc_stop[i][k][0],loc_stop[i][k][1])],'r', linewidth=2)
-
+    
+    ax3.set_ylabel('Input value')
+    ax3.set_xlabel('Time')
     ax3.grid(True)
+    ax3.set_xlim(0,simmat.shape[0])
+    ax3.vlines(loc_start_best,df.min(),df.max(), linestyles='--',  colors='g')
+    ax3.vlines(loc_stop_best,df.min(),df.max(), linestyles='--',  colors='r')
+
     plt.show()
-    return
+
+    return(fig)
 
 #%% Compute percentage
 def compute_percentage(r):
@@ -319,7 +357,7 @@ def gridsearch(df, window=None, perc=None, threshold=0.25, showplot=True, verbos
     for k in tqdm(range(0,len(windows)), disable=(True if verbose==0 else False)):
         for i in range(0,len(perc)):
             # Compute start-stop locations
-            getregions=caerus(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, showplot=False, verbose=0)
+            getregions=fit(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, showplot=False, verbose=0)
             # Store
             perf=pd.DataFrame()
             perf['portfolio_value'] = df.values.copy()
