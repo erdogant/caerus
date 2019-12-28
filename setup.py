@@ -6,9 +6,9 @@ with open("README.md", "r") as fh:
 setuptools.setup(
      install_requires=['numpy<=1.18','pandas','tqdm','matplotlib'],
      name='caerus',  
-#     version='0.1.0',
-     version=versioneer.get_version(),    # VERSION CONTROL
-     cmdclass=versioneer.get_cmdclass(),  # VERSION CONTROL
+     version='0.1.0',
+#     version=versioneer.get_version(),    # VERSION CONTROL
+#     cmdclass=versioneer.get_cmdclass(),  # VERSION CONTROL
      author="Erdogan Taskesen",
      author_email="erdogant@gmail.com",
      description="Detection of favorable moments",
