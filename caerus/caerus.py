@@ -136,6 +136,55 @@ def fit(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, 
 
     return(out)
 
+#%% Perform gridsearch to determine best parameters
+def gridsearch(df, window=None, perc=None, threshold=0.25, showplot=True, verbose=3):
+    if verbose>=3: print('[CAERUS] Gridsearch..')
+
+    if isinstance(window, type(None)):
+        windows=np.arange(50,550,50)
+    if isinstance(perc, type(None)):
+        perc=np.arange(0,1,0.1)
+    if showplot:
+        [fig,(ax1,ax2)]=plt.subplots(2,1)
+
+    out_balance = np.zeros((len(perc),len(windows)))
+    out_trades  = np.zeros((len(perc),len(windows)))
+
+    for k in tqdm(range(0,len(windows)), disable=(True if verbose==0 else False)):
+        for i in range(0,len(perc)):
+            # Compute start-stop locations
+            getregions=fit(df, window=windows[k], minperc=perc[i], threshold=threshold, nlargest=1, verbose=0)
+            # Store
+            perf=pd.DataFrame()
+            perf['portfolio_value'] = df.values.copy()
+            perf['asset']           = df.values.copy()
+            perf['invested']        = 0
+            perf['invested'].iloc[region2idx(np.vstack((getregions['loc_start_best'], getregions['loc_stop_best'])).T)]=1
+            performanceMetrics = risk_performance_metrics(perf)
+            # Compute score
+            out_balance[i,k] =performanceMetrics['winning_balance']
+            out_trades[i,k]=performanceMetrics['winning_trades']
+
+        if showplot:
+            #label = list(map(( lambda x: 'window_' + x), windows.astype(str)))
+            ax1.plot(perc,out_balance[:,k], label='window_'+str(windows[k]))
+            ax2.plot(perc,out_trades[:,k], label='window_'+str(windows[k]))
+
+
+    if showplot:
+        ax1.legend()
+        ax1.grid(True)
+        ax1.set_xlabel('Percentage')
+        ax1.set_ylabel('winning_balance')
+        ax2.grid(True)
+        ax2.set_xlabel('Percentage')
+        ax2.set_ylabel('Nr Trades')
+        plt.show()
+    
+    out_balance  = pd.DataFrame(index=perc, data=out_balance, columns=windows)
+    out_trades   = pd.DataFrame(index=perc, data=out_trades, columns=windows)
+    return(out_balance, out_trades)
+
 #%% Merge regions
 def get_locs_best(df, loc_start, loc_stop):
     loc_start_best=np.zeros(len(loc_start)).astype(int)
@@ -340,54 +389,6 @@ def compute_percentage(r):
     perc=percentage_getdiff(r[0],r[-1])
     return(perc) 
 
-#%% Perform gridsearch to determine best parameters
-def gridsearch(df, window=None, perc=None, threshold=0.25, showplot=True, verbose=3):
-    if verbose>=3: print('[CAERUS] Gridsearch..')
-
-    if isinstance(window, type(None)):
-        windows=np.arange(50,550,50)
-    if isinstance(perc, type(None)):
-        perc=np.arange(0,1,0.1)
-    if showplot:
-        [fig,(ax1,ax2)]=plt.subplots(2,1)
-
-    out_balance = np.zeros((len(perc),len(windows)))
-    out_trades  = np.zeros((len(perc),len(windows)))
-
-    for k in tqdm(range(0,len(windows)), disable=(True if verbose==0 else False)):
-        for i in range(0,len(perc)):
-            # Compute start-stop locations
-            getregions=fit(df, window=windows[i], minperc=perc[k], threshold=threshold, nlargest=1, verbose=0)
-            # Store
-            perf=pd.DataFrame()
-            perf['portfolio_value'] = df.values.copy()
-            perf['asset']           = df.values.copy()
-            perf['invested']        = 0
-            perf['invested'].iloc[region2idx(np.vstack((getregions['loc_start_best'], getregions['loc_stop_best'])).T)]=1
-            performanceMetrics = risk_performance_metrics(perf)
-            # Compute score
-            out_balance[i,k] =performanceMetrics['winning_balance']
-            out_trades[i,k]=performanceMetrics['winning_trades']
-
-        if showplot:
-            #label = list(map(( lambda x: 'window_' + x), windows.astype(str)))
-            ax1.plot(perc,out_balance[:,k], label='window_'+str(windows[k]))
-            ax2.plot(perc,out_trades[:,k], label='window_'+str(windows[k]))
-
-
-    if showplot:
-        ax1.legend()
-        ax1.grid(True)
-        ax1.set_xlabel('Percentage')
-        ax1.set_ylabel('winning_balance')
-        ax2.grid(True)
-        ax2.set_xlabel('Percentage')
-        ax2.set_ylabel('Nr Trades')
-        plt.show()
-    
-    out_balance  = pd.DataFrame(index=perc, data=out_balance, columns=windows)
-    out_trades   = pd.DataFrame(index=perc, data=out_trades, columns=windows)
-    return(out_balance, out_trades)
 
 #%% Compute percentage between current price and starting price
 def percentage_getdiff(current_price, previous_price):
