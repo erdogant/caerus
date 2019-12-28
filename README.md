@@ -48,7 +48,7 @@ import caerus as cs
 
 - Simple example with constant window, minimum percentage and threshold
 ```python
-df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/fb.csv')['close']
+df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/caerus/data/fb.csv')['close']
 out = cs.fit(df)
 fig = cs.makefig(out)
 ```
@@ -63,7 +63,7 @@ The output looks as below:
 
 
 ```python
-df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/btc.csv')['Close']
+df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/caerus/data/btc.csv')['Close']
 out = cs.fit(df)
 fig = cs.makefig(out)
 ```
@@ -75,7 +75,7 @@ The output looks as below:
 
 - Gridsearch walks over the windows and over the percentages to determine optimal window, minimum percentage and the threshold.
 ```python
-df = pd.read_csv('https://github.com/erdoganta/caerus/blob/master/data/btc.csv')['close']
+df = pd.read_csv('https://github.com/erdoganta/caerus/blob/master/caerus/data/btc.csv')['close']
 out = cs.gridsearch(df)
 ```
 
