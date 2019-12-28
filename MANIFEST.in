@@ -1,0 +1,4 @@
+include versioneer.py
+include caerus/_version.py
+include data/fb.csv
+include data/btc.csv

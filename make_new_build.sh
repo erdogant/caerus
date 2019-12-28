@@ -1,6 +1,7 @@
 echo "Making new build.."
 echo ""
 python setup.py bdist_wheel
+python setup.py sdist_wheel
 echo ""
 read -p "Making source build after pressing [Enter].."
 echo 
