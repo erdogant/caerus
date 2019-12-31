@@ -1,6 +1,6 @@
 # CAERUS
 [![PyPI Version](https://img.shields.io/pypi/v/caerus)](https://pypi.org/project/caerus/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/erdoganta/caerus/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/erdogant/caerus/blob/master/LICENSE)
 
 Detection of local minima with the corresponding local maxima within the given time-frame.
 
@@ -33,7 +33,7 @@ pip install caerus
 * Alternatively, install caerus from the GitHub source:
 
 ```bash
-git clone https://github.com/erdoganta/caerus.git
+git clone https://github.com/erdogant/caerus.git
 cd caerus
 python setup.py install
 ```  
@@ -47,7 +47,7 @@ import caerus as cs
 
 - Simple example with constant window, minimum percentage and threshold
 ```python
-df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/caerus/data/fb.csv')['close']
+df=pd.read_csv('https://github.com/erdogant/caerus/blob/master/caerus/data/fb.csv')['close']
 out = cs.fit(df)
 fig = cs.makefig(out)
 ```
@@ -62,7 +62,7 @@ The output looks as below:
 
 
 ```python
-df=pd.read_csv('https://github.com/erdoganta/caerus/blob/master/caerus/data/btc.csv')['Close']
+df=pd.read_csv('https://github.com/erdogant/caerus/blob/master/caerus/data/btc.csv')['Close']
 out = cs.fit(df)
 fig = cs.makefig(out)
 ```
@@ -74,7 +74,7 @@ The output looks as below:
 
 - Gridsearch walks over the windows and over the percentages to determine optimal window, minimum percentage and the threshold.
 ```python
-df = pd.read_csv('https://github.com/erdoganta/caerus/blob/master/caerus/data/btc.csv')['close']
+df = pd.read_csv('https://github.com/erdogant/caerus/blob/master/caerus/data/btc.csv')['close']
 out = cs.gridsearch(df)
 ```
 
@@ -87,16 +87,16 @@ The output looks as below:
 ## Citation
 Please cite caerus in your publications if this is useful for your research. Here is an example BibTeX entry:
 ```BibTeX
-@misc{erdoganta2019caerus,
+@misc{erdogant2019caerus,
   title={caerus},
   author={Erdogan Taskesen},
   year={2019},
-  howpublished={\url{https://github.com/erdoganta/caerus}},
+  howpublished={\url{https://github.com/erdogant/caerus}},
 }
 ```
 
 ## Maintainers
-* Erdogan Taskesen, github: [erdoganta](https://github.com/erdoganta)
+* Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
 
 ## © Copyright
 See [LICENSE](LICENSE) for details.
