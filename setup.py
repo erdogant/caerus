@@ -4,8 +4,8 @@ import versioneer
 with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
-     install_requires=['numpy<=1.18','pandas','tqdm','matplotlib'],
-     python_requires='>=3.6',
+     install_requires=['numpy','pandas','tqdm','matplotlib'],
+     python_requires='>=3',
      name='caerus',  
      version='0.1.0',
 #     version=versioneer.get_version(),    # VERSION CONTROL
