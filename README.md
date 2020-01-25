@@ -3,7 +3,7 @@
 [![PyPI Version](https://img.shields.io/pypi/v/caerus)](https://pypi.org/project/caerus/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/erdogant/caerus/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/caerus/week)](https://pepy.tech/project/caerus/week)
-[![Donate Bitcoin](https://img.shields.io/badge/sponsor-black.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
+[![Donate Bitcoin](https://img.shields.io/badge/sponsor-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
 
 Detection of local minima with the corresponding local maxima within the given time-frame.
 
