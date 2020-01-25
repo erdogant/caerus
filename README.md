@@ -3,7 +3,7 @@
 [![PyPI Version](https://img.shields.io/pypi/v/caerus)](https://pypi.org/project/caerus/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/erdogant/caerus/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/caerus/week)](https://pepy.tech/project/caerus/week)
-[![Donate Bitcoin](https://img.shields.io/badge/donate-orange.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
+[![Donate Bitcoin](https://img.shields.io/badge/sponsor-orange.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
 
 Detection of local minima with the corresponding local maxima within the given time-frame.
 
@@ -104,5 +104,5 @@ Please cite caerus in your publications if this is useful for your research. Her
 ### Licence
 * See [LICENSE](LICENSE) for details.
 
-### Donation
+### Sponsor
 * This work is created and maintained in my free time. If this package is usefull to you and if want to see more like this, you can show your <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">gratitude</a> :) Thanks!
