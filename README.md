@@ -105,5 +105,5 @@ Please cite caerus in your publications if this is useful for your research. Her
 See [LICENSE](LICENSE) for details.
 
 ### Donation
-* This work is created and maintained in my free time. If this package is usefull to you, and if want to see more like this, you can support me!
+* This work is created and maintained in my free time. If this package is usefull to you, and if want to see more like this, show your gratitude!
 [![Donate Bitcoin](https://img.shields.io/badge/donate-orange.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
