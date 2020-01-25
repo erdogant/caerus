@@ -104,6 +104,6 @@ Please cite caerus in your publications if this is useful for your research. Her
 ## © Licence
 See [LICENSE](LICENSE) for details.
 
-## Donation
+### Donation
 * This work is created and maintained in my free time. If this package brings you good stuff, you can support me!
 [![Donate Bitcoin](https://img.shields.io/badge/donate-orange.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
