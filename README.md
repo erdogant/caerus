@@ -105,4 +105,4 @@ Please cite caerus in your publications if this is useful for your research. Her
 * See [LICENSE](LICENSE) for details.
 
 ### Sponsor
-* This package is created and maintained in my free time. If this package is usefull, you can show your <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">gratitude</a> :) Thanks!
+* This work is created and maintained in my free time. If you wish to buy me a <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">Coffee</a> for this work, it is very appreciated.
