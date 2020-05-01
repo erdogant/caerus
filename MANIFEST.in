@@ -1,3 +1,2 @@
-include versioneer.py
-include caerus/_version.py
-include caerus/data/*.csv
+include caerus/data/*.zip
+include caerus/data/*.txt

@@ -48,30 +48,7 @@
 	As an example, if you want to have best regions, use threshold=1, minperc=high 
 	and nlargest=1 (small).
 
- EXAMPLE
-    %reset -f
-    import caerus as cs
-    import etlearn.picklefast as picklefast
-    import numpy as np
-
-    df  = picklefast.load('../DATA/STOCK/btcyears.pkl')['Close']
-    df  = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
-    out = cs.fit(df, window=50, minperc=3, threshold=0.25, nlargest=10)
-    fig = cs.makefig(out)
-
-    # Best parameters
-    [out_balance, out_trades]=caerus.gridsearch(df)
-
-    # Shuffle
-    df = picklefast.load('../DATA/STOCK/btc1h.pkl')['close']
-    np.random.shuffle(df)
-    outNull=cs.fit(df, window=50, minperc=3, nlargest=10, threshold=0.25)
-    plt.figure();plt.hist(outNull['agg'], bins=50)
-    Praw=hypotesting(out['agg'], outNull['agg'], showfig=0, bound='up')['Praw']
-    model=distfit(outNull['agg'], showfig=1, alpha=0.05)[0]
-    
-
- SEE ALSO
+ SEE ALSO findpeaks
 
 """
 
@@ -89,52 +66,157 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 # Custom helpers
-from caerus.ones2idx import ones2region, idx2region, region2idx
-from caerus.risk_performance_metrics import risk_performance_metrics
+from caerus.utils.ones2idx import ones2region, idx2region, region2idx
+from caerus.utils.risk_performance_metrics import risk_performance_metrics
+import wget
+import os
 
-#%% main - Detection of optimal localities for investments
-def fit(df, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, verbose=3):
-    Param = dict()
-    Param['verbose']   = verbose
-    Param['window']    = window
-    Param['minperc']   = minperc
-    Param['threshold'] = threshold
-    Param['nlargest']  = nlargest
-    Param['extb']      = extb
-    Param['extf']      = extf
 
-    # Convert to dataframe
-    if 'numpy' in str(type(df)) or 'list' in str(type(df)):
-        df = pd.DataFrame(df, columns=['data'])
+# Class
+class caerus():
+    """
+    """
+    def __init__(self, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10):
+        """Initialize distfit with user-defined parameters."""
+        self.window = window
+        self.minperc = minperc
+        self.nlargest = nlargest
+        self.threshold = threshold
+        self.extb = extb
+        self.extf = extf
 
-    # Some checks
-    # assert isinstance(df, pd.DataFrame), 'Input data must be of type <pd.DataFrame()>'
-    # assert df.shape[1]==1, 'Input data can only have 1 column with data'
+    # main - Detection of optimal localities for investments
+    def fit(self, X, verbose=3):
     
-    # reset index
-    df.reset_index(drop=True, inplace=True)
-    # Run over all windows
-    simmat = compute_region_scores(df, window=Param['window'], verbose=Param['verbose'])
-    # Keep only percentages above minimum
-    simmat = simmat[simmat>Param['minperc']]
-    # Find local minima-start-locations
-    [loc_start, outagg] = regions_detect_start(simmat, Param['minperc'], Param['threshold'], extb=Param['extb'], extf=Param['extf'])
-    # Find regions that are local optima for the corrersponding local-minima
-    loc_stop = regions_detect_stop(simmat, loc_start, Param['nlargest'], extb=Param['extb'], extf=Param['extf'], verbose=Param['verbose'])
-    # Find regions that are local optima for the corrersponding local-minima
-    [loc_start_best, loc_stop_best] = get_locs_best(df, loc_start, loc_stop)
+        # Convert to dataframe
+        if isinstance(X, pd.DataFrame): raise Exception('[caerus] >Error: Input data must be of type numpy-array or list.')
+        if 'numpy' in str(type(X)) or 'list' in str(type(X)): X = pd.Series(X)
+        if X.shape[0]!=X.size: raise Exception('[caerus] >Error : Input dataframe can only be a 1D-vector.')
 
-    out=dict()
-    out['df']=df
-    out['Param']=Param
-    out['simmat']=simmat
-    out['loc_start']=loc_start
-    out['loc_stop']=loc_stop
-    out['loc_start_best']=loc_start_best
-    out['loc_stop_best']=loc_stop_best
-    out['agg']=outagg
+        # reset index
+        X.reset_index(drop=True, inplace=True)
+        # Run over all windows
+        simmat = compute_region_scores(X, window=self.window, verbose=verbose)
+        # Keep only percentages above minimum
+        simmat = simmat[simmat>self.minperc]
+        # Find local minima-start-locations
+        [loc_start, outagg] = regions_detect_start(simmat, self.minperc, self.threshold, extb=self.extb, extf=self.extf)
+        # Find regions that are local optima for the corrersponding local-minima
+        loc_stop = regions_detect_stop(simmat, loc_start, self.nlargest, extb=self.extb, extf=self.extf, verbose=verbose)
+        # Find regions that are local optima for the corrersponding local-minima
+        [loc_start_best, loc_stop_best] = get_locs_best(X, loc_start, loc_stop)
+    
+        self.X = X
+        self.simmat=simmat
+        self.loc_start=loc_start
+        self.loc_stop=loc_stop
+        self.loc_start_best=loc_start_best
+        self.loc_stop_best=loc_stop_best
+        self.agg=outagg
 
-    return(out)
+    # Make final figure
+    def plot(self, threshold=None, figsize=[25,15]):
+        df = self.X
+        loc_start = self.loc_start
+        loc_stop = self.loc_stop
+        loc_start_best = self.loc_start_best
+        loc_stop_best = self.loc_stop_best
+        simmat = self.simmat
+        if threshold is None:
+            threshold = self.threshold
+            
+        # agg = out['agg']
+        
+        [fig,(ax1,ax2,ax3)]=plt.subplots(3,1, figsize=figsize)
+        # Make heatmap
+        ax1.matshow(np.flipud(simmat.T))
+        ax1.set_aspect('auto')
+        # ax1.gca().set_aspect('auto')
+        ax1.grid(False)
+        ax1.set_ylabel('Perc.difference in window\n(higher=better)')
+        ax1.set_xlim(0,simmat.shape[0])
+        
+        xlabels = simmat.columns.values.astype(str)
+        I=np.mod(simmat.columns.values,10)==0
+        xlabels[I==False]=''
+        xlabels[-1]=simmat.columns.values[-1].astype(str)
+        xlabels[0]=simmat.columns.values[0].astype(str)
+        ax1.set_yticks(range(0,len(xlabels)))
+        ax1.set_yticklabels(np.flipud(xlabels))
+        ax1.grid(True, axis='x')
+        
+        # make aggregated figure
+        # Normalized successes across the n windows for percentages above minperc.
+        # 1 depicts that for location i, all of the 1000 windows of different length was succesfull in computing a percentage above minperc
+        [outagg, I] = agg_scores(simmat, threshold)
+        ax2.plot(outagg)
+        ax2.grid(True)
+        ax2.set_ylabel('Cummulative\n#success windows')
+        ax2.set_xlim(0,simmat.shape[0])
+        ax2.hlines(threshold,0,simmat.shape[0], linestyles='--',  colors='r')
+        ax2.vlines(loc_start_best,0,1, linestyles='--',  colors='g')
+        ax2.vlines(loc_stop_best,0,1, linestyles='--',  colors='r')
+    
+        # Plot local minima-maxima
+        ax3.plot(df.iloc[loc_start_best],'og', linewidth=1)
+        ax3.plot(df.iloc[loc_stop_best],'or', linewidth=1)
+    
+        # Plot region-minima-maxima
+        ax3.plot(df,'k', linewidth=1)
+        for i in range(0,len(loc_start)):
+            ax3.plot(df.iloc[np.arange(loc_start[i][0],loc_start[i][1])],'g', linewidth=2)
+            # ax3.plot(df.iloc[np.arange(loc_stop[i][0],loc_stop[i][1])],'r', linewidth=2)
+            # ax3.plot(df.iloc[loc_stop[i]], 'or', linewidth=2)
+            for k in range(0,len(loc_stop[i])):
+                ax3.plot(df.iloc[np.arange(loc_stop[i][k][0],loc_stop[i][k][1])],'r', linewidth=2)
+        
+        ax3.set_ylabel('Input value')
+        ax3.set_xlabel('Time')
+        ax3.grid(True)
+        ax3.set_xlim(0,simmat.shape[0])
+        ax3.vlines(loc_start_best,df.min(),df.max(), linestyles='--',  colors='g')
+        ax3.vlines(loc_stop_best,df.min(),df.max(), linestyles='--',  colors='r')
+    
+        plt.show()
+    
+        return(fig)
+
+    #  Import example dataset from github.
+    def download_example(name='btc', verbose=3):
+        """Import example dataset from github.
+    
+        Parameters
+        ----------
+        name : str, optional
+            name of the file to download.
+        verbose : int, optional
+            Print message to screen. The default is 3.
+    
+        Returns
+        -------
+        tuple containing dataset and response variable (X,y).
+    
+        """
+        if name=='btc':
+            url='https://erdogant.github.io/datasets/BTCUSDT.zip'
+        else:
+            url='https://erdogant.github.io/datasets/facebook_stocks.zip'
+    
+        curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+        PATH_TO_DATA = os.path.join(curpath, wget.filename_from_url(url))
+    
+        # Check file exists.
+        if not os.path.isfile(PATH_TO_DATA):
+            if verbose>=3: print('[classeval] Downloading example dataset..')
+            wget.download(url, curpath)
+    
+        # Import local dataset
+        if verbose>=3: print('[caerus] Import dataset..')
+        df = pd.read_csv(PATH_TO_DATA)
+    
+        # Return
+        return df
+    
 
 #%% Perform gridsearch to determine best parameters
 def gridsearch(df, window=None, perc=None, threshold=0.25, showplot=True, verbose=3):
@@ -319,71 +401,6 @@ def regions_detect_stop(out, locs_start, nlargest, extb=5, extf=5, verbose=0):
 
     return(locs_stop)
 
-#%% Make final figure
-def makefig(out, threshold=0.25, figsize=[25,15]):
-    df = out['df']
-    loc_start = out['loc_start']
-    loc_stop = out['loc_stop']
-    loc_start_best = out['loc_start_best']
-    loc_stop_best = out['loc_stop_best']
-    simmat = out['simmat']
-    threshold = out['Param']['threshold']
-    # agg = out['agg']
-    
-    [fig,(ax1,ax2,ax3)]=plt.subplots(3,1, figsize=figsize)
-    # Make heatmap
-    ax1.matshow(np.flipud(simmat.T))
-    ax1.set_aspect('auto')
-    # ax1.gca().set_aspect('auto')
-    ax1.grid(False)
-    ax1.set_ylabel('Perc.difference in window\n(higher=better)')
-    ax1.set_xlim(0,simmat.shape[0])
-    
-    xlabels = simmat.columns.values.astype(str)
-    I=np.mod(simmat.columns.values,10)==0
-    xlabels[I==False]=''
-    xlabels[-1]=simmat.columns.values[-1].astype(str)
-    xlabels[0]=simmat.columns.values[0].astype(str)
-    ax1.set_yticks(range(0,len(xlabels)))
-    ax1.set_yticklabels(np.flipud(xlabels))
-    ax1.grid(True, axis='x')
-    
-    # make aggregated figure
-    # Normalized successes across the n windows for percentages above minperc.
-    # 1 depicts that for location i, all of the 1000 windows of different length was succesfull in computing a percentage above minperc
-    [outagg, I] = agg_scores(simmat, threshold)
-    ax2.plot(outagg)
-    ax2.grid(True)
-    ax2.set_ylabel('Cummulative\n#success windows')
-    ax2.set_xlim(0,simmat.shape[0])
-    ax2.hlines(threshold,0,simmat.shape[0], linestyles='--',  colors='r')
-    ax2.vlines(loc_start_best,0,1, linestyles='--',  colors='g')
-    ax2.vlines(loc_stop_best,0,1, linestyles='--',  colors='r')
-
-    # Plot local minima-maxima
-    ax3.plot(df.iloc[loc_start_best],'og', linewidth=1)
-    ax3.plot(df.iloc[loc_stop_best],'or', linewidth=1)
-
-    # Plot region-minima-maxima
-    ax3.plot(df,'k', linewidth=1)
-    for i in range(0,len(loc_start)):
-        ax3.plot(df.iloc[np.arange(loc_start[i][0],loc_start[i][1])],'g', linewidth=2)
-        # ax3.plot(df.iloc[np.arange(loc_stop[i][0],loc_stop[i][1])],'r', linewidth=2)
-        # ax3.plot(df.iloc[loc_stop[i]], 'or', linewidth=2)
-        for k in range(0,len(loc_stop[i])):
-            ax3.plot(df.iloc[np.arange(loc_stop[i][k][0],loc_stop[i][k][1])],'r', linewidth=2)
-    
-    ax3.set_ylabel('Input value')
-    ax3.set_xlabel('Time')
-    ax3.grid(True)
-    ax3.set_xlim(0,simmat.shape[0])
-    ax3.vlines(loc_start_best,df.min(),df.max(), linestyles='--',  colors='g')
-    ax3.vlines(loc_stop_best,df.min(),df.max(), linestyles='--',  colors='r')
-
-    plt.show()
-
-    return(fig)
-
 #%% Compute percentage
 def compute_percentage(r):
     perc=percentage_getdiff(r[0],r[-1])
@@ -403,3 +420,5 @@ def percentage_getdiff(current_price, previous_price):
         diff_perc=-(previous_price-current_price)/previous_price*100
     
     return(diff_perc)
+
+
