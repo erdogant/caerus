@@ -1,80 +1,78 @@
-""" This function determines the local minima with the corresponding local-maxima within the given time-frame
-	import caerus as cs
-
-	out    = cs.fit(df, <optional>)
-	out_gs = cs.gridserch(df, <optional>)
-	fig    = cs.makefig(out, <optional>)
-
- INPUT:
-   data:           dataframe [nx1]
-                   n=rows = time or other index
-                   value
- OPTIONAL
-
-   window:         Integer [1,...,len(data)] Window size that is used to determine whether there is an increase in percentage. start-location + window
-                   50 (default) Smaller window size is able to pickup better local-minima
-                   1000         Larger window size will more stress on global minma
-
-   minperc:        Float [0,..,1] Minimum percentage to declare a starting position with window relevant. Note that nlargest is used to identify the top n largest percentages as stopping location.
-                   3 (default)
-
-   nlargest:       Integer [1,..,inf] Used to identify the top n percentages, and thus stop-regions (couples to start-region). The larger this number, the larger the stop-region untill it is limited by minperc.
-                   10 (default)
-
-   threshold:      Float [0,..,1] Required to optimize for the maximum depth of the local-minima. At the ith location, k windows (eg 50) are overlaid and the percentages are determined. The socre is determined by (percentage(i-start,k-stop)) >= minperc (eg 3), and normalized for the maximum number of windows used at position i. In best case scenarion, all window result in percentage>minperc and will hve score 50/50=1. 
-                   0.25 (default)
-
-   verbose:        Boolean [0,1]
-                   0: No (default)
-                   1: Yes
-
- OUTPUT
-	output
-
- DESCRIPTION
-    In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments. 
-    He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
-
-	**caerus** is a Python package providing that determines the local-minima with 
-	the corresponding local-maxima within the given time-frame. The method is build
-	using a forward rolling window to iteratively evaluate thousands of windows. 
-	For each window a score of percentages is computed from the start-to-stop 
-	position. The resulting matrix is a [window x length dataframe] for which only 
-	the high scoring percentages, e.g. those above a certain value (minperc) are 
-	used. The best scoring percentages is then aggregated by sum per time-point 
-	followed by a cut using the threshold. The resulting regions are subsequently 
-	detected, and represent the starting-locations of the trade. The stop-locations 
-	are determined based on the distance and percentage of te start-locations.
-	As an example, if you want to have best regions, use threshold=1, minperc=high 
-	and nlargest=1 (small).
-
- SEE ALSO findpeaks
-
-"""
-
 #--------------------------------------------------------------------------
 # Name        : caerus.py
-# Version     : 1.0
 # Author      : E.Taskesen
 # Contact     : erdogant@gmail.com
-# Date        : June. 2019
+# Date        : May. 2020
 #--------------------------------------------------------------------------
 
-#%% Libraries
+# %% Libraries
+import caerus.utils.csutils as csutils
+import caerus.utils.csplots as csplots
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 # Custom helpers
-from caerus.utils.ones2idx import ones2region, idx2region, region2idx
+from caerus.utils.ones2idx import region2idx
 from caerus.utils.risk_performance_metrics import risk_performance_metrics
 import wget
 import os
+import matplotlib.pyplot as plt
 
 
 # Class
 class caerus():
-    """
+    """Compute the local minima with the corresponding local-maxima within the given time-frame.
+
+    Description
+    -----------
+    In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
+    He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
+
+    **caerus** is a python package providing that determines the local-minima with
+    the corresponding local-maxima within the given time-frame. The method is build
+    using a forward rolling window to iteratively evaluate thousands of windows.
+    For each window a score of percentages is computed from the start-to-stop
+    position. The resulting matrix is a [window x length dataframe] for which only
+    the high scoring percentages, e.g. those above a certain value (minperc) are
+    used. The best scoring percentages is then aggregated by sum per time-point
+    followed by a cut using the threshold. The resulting regions are subsequently
+    detected, and represent the starting-locations of the trade. The stop-locations
+    are determined based on the distance and percentage of te start-locations.
+    As an example, if you want to have best regions, use threshold=1, minperc=high
+    and nlargest=1 (small).
+
+    Here are just a few of the things that caerus does well:
+        - Ouput contains detected start-stop regions of local minima and maxima.
+        - Figures are created.
+        - Parameter gridsearch.
+        - Designed for the detection of complex trend movements.
+
+    Parameters
+    ----------
+    window : int [1,..,len(X)], default : 50
+        Window size that is used to determine whether there is an increase in percentage. start location + window.
+        50 : (default) Smaller window size is able to pickup better local-minima.
+        1000 : Larger window size will more stress on global minma.
+    minperc : float [0,..,100], default : 3
+        Minimum percentage to declare a starting position with window relevant.
+        Note that nlargest is used to identify the top n largest percentages as stopping location.
+    nlargest : float [1,..,inf], default : 10
+        Identify the top n percentages, and thus stop-regions (couples to start-region).
+        The larger this number, the larger the stop-region untill it is limited by minperc.
+    threshold : float [0,..,1], default : 0.25
+        Required to optimize for the maximum depth of the local-minima.
+        At the ith location, k windows (eg 50) are overlaid and the percentages are determined.
+        The socre is determined by (percentage(i-start,k-stop)) >= minperc (eg 3), and normalized for the maximum number of windows used at position i.
+        In best case scenarion, all window result in percentage>minperc and will hve score 50/50=1. 
+
+    Examples
+    --------
+    >>> from caerus import caerus
+    >>> cs = caerus()
+    >>> X = cs.download_example()
+    >>> cs.fit(X)
+    >>> cs.plot()
+
     """
     def __init__(self, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10):
         """Initialize distfit with user-defined parameters."""

@@ -1,24 +1,45 @@
-# # %%
-# import caerus as cs
-# print(dir(cs))
-# print(cs.__version__)
-
-
-
-import numpy as np
 import caerus as caerus
 print(caerus.__version__)
+
+from caerus import caerus
+print(dir(caerus))
+
+# %% Import class
+from caerus import caerus
+cs = caerus()
+X = cs.download_example(name='facebook')
+cs = caerus()
+cs.fit(X)
+cs.plot()
 
 
 # %% Import class
 from caerus import caerus
-print(dir(caerus))
-
 cs = caerus()
-X = cs.download_example()['close'].values
+X = cs.download_example(name='btc')
+cs = caerus(minperc=1, window=100)
 cs.fit(X)
 cs.plot()
 
+
+# %% Import class
+from caerus import caerus
+cs = caerus(minperc=1)
+X = cs.download_example(name='btc')
+cs.fit(X)
+cs.plot()
+
+# %% Gridsearch
+from caerus import caerus
+cs = caerus()
+X = cs.download_example(name='facebook')
+cs.gridsearch(X, window=np.arange(50,550,100), minperc=np.arange(1,20,5))
+cs.plot()
+
+# Take best results
+cs = caerus(minperc=6)
+cs.fit(X)
+cs.plot()
 
 # %%
 df = cs.download_example()

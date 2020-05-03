@@ -32,14 +32,17 @@ Here are just a few of the things that caerus does well:
 - Gridsearch is possible
 
 
-Example
--------
->>> import caerus as caerus
->>> model = caerus.fit(X)
->>> fig,ax = caerus.plot(model)
+Examples
+--------
+>>> from caerus import caerus
+>>> cs = caerus()
+>>> X = cs.download_example()
+>>> cs.fit(X)
+>>> fig = cs.plot()
 
 References
 ----------
-https://github.com/erdogant/caerus
+8 https://github.com/erdogant/caerus
+* https://github.com/erdogant/findpeaks
 
 """
