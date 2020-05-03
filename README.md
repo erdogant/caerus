@@ -5,7 +5,6 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/caerus/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/caerus/month)](https://pepy.tech/project/caerus/month)
 [![Donate](https://img.shields.io/badge/donate-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
-[![Sphinx](https://img.shields.io/badge/Sphinx-Docs-blue)](https://erdogant.github.io/caerus/)
 
 * caerus is Python package
 
@@ -34,29 +33,38 @@ pip install caerus
 # Directly install from github source
 pip install -e git://github.com/erdogant/caerus.git@0.1.0#egg=master
 pip install git+https://github.com/erdogant/caerus#egg=master
-
-# By cloning
-pip install git+https://github.com/erdogant/caerus
-git clone https://github.com/erdogant/caerus.git
-cd caerus
-python setup.py install
 ```  
 
 #### Import caerus package
 ```python
-import caerus as caerus
+from caerus import caerus
 ```
 
 #### Example:
 ```python
-df = pd.read_csv('https://github.com/erdogant/hnet/blob/master/caerus/data/example_data.csv')
-model = caerus.fit(df)
-G = caerus.plot(model)
+from caerus import caerus
+cs = caerus()
+X = cs.download_example()
+cs.fit(X)
+cs.plot()
 ```
 <p align="center">
   <img src="https://github.com/erdogant/caerus/blob/master/docs/figs/fig1.png" width="600" />
-  
 </p>
+
+#### Example gridsearch:
+```python
+from caerus import caerus
+cs = caerus()
+X = cs.download_example(name='facebook')
+cs.gridsearch(X)
+cs.plot()
+
+# Change some gridsearch parameters
+cs.gridsearch(X, window=np.arange(50,550,100), minperc=np.arange(1,20,5))
+cs.plot()
+```
+
 
 
 #### Citation

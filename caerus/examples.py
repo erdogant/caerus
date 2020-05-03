@@ -29,11 +29,13 @@ X = cs.download_example(name='btc')
 cs.fit(X)
 cs.plot()
 
+
 # %% Gridsearch
 from caerus import caerus
 cs = caerus()
 X = cs.download_example(name='facebook')
-cs.gridsearch(X, window=np.arange(50,550,100), minperc=np.arange(1,20,5))
+cs.gridsearch(X)
+# cs.gridsearch(X, window=np.arange(50,550,100), minperc=np.arange(1,20,5))
 cs.plot()
 
 # Take best results
