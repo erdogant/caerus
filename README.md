@@ -6,8 +6,23 @@
 [![Downloads](https://pepy.tech/badge/caerus/month)](https://pepy.tech/project/caerus/month)
 [![Donate](https://img.shields.io/badge/donate-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
 
-* caerus is Python package
+In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
+He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
 
+**caerus** is a python package providing that determines the local-minima with the corresponding local-maxima within the given time-frame. The method is build
+using a forward rolling window to iteratively evaluate thousands of windows. For each window a score of percentages is computed from the start-to-stop
+position. The resulting matrix is a [window x length dataframe] for which only the high scoring percentages, e.g. those above a certain value (minperc) are
+used. The best scoring percentages is then aggregated by sum per time-point followed by a cut using the threshold. The resulting regions are subsequently
+detected, and represent the starting-locations of the trade. The stop-locations are determined based on the distance and percentage of te start-locations.
+As an example, if you want to have best regions, use threshold=1, minperc=high and nlargest=1 (small).
+
+Here are just a few of the things that caerus does well:
+    - Ouput contains detected start-stop regions of local minima and maxima.
+    - Figures are created.
+    - Parameter gridsearch.
+    - Designed for the detection of complex trend movements.
+    
+    
 ### Contents
 - [Installation](#-installation)
 - [Contribute](#-contribute)
@@ -40,21 +55,31 @@ pip install git+https://github.com/erdogant/caerus#egg=master
 from caerus import caerus
 ```
 
-#### Example:
+#### Example 1:
 ```python
-from caerus import caerus
 cs = caerus()
 X = cs.download_example()
 cs.fit(X)
 cs.plot()
 ```
 <p align="center">
-  <img src="https://github.com/erdogant/caerus/blob/master/docs/figs/fig1.png" width="600" />
+  <img src="https://github.com/erdogant/caerus/blob/master/docs/figs/figure_btc.png" width="600" />
+  <img src="https://github.com/erdogant/caerus/blob/master/docs/figs/figure_btc_last_300days.png" width="600" />
+</p>
+
+#### Example 2:
+```python
+cs = caerus()
+X = cs.download_example(name='facebook')
+cs.fit(X)
+cs.plot()
+```
+<p align="center">
+  <img src="https://github.com/erdogant/caerus/blob/master/docs/figs/figure_fb.png" width="600" />
 </p>
 
 #### Example gridsearch:
 ```python
-from caerus import caerus
 cs = caerus()
 X = cs.download_example(name='facebook')
 cs.gridsearch(X)
@@ -64,7 +89,9 @@ cs.plot()
 cs.gridsearch(X, window=np.arange(50,550,100), minperc=np.arange(1,20,5))
 cs.plot()
 ```
-
+<p align="center">
+  <img src="https://github.com/erdogant/caerus/blob/master/docs/figs/figure_gridsearch_btc.png" width="600" />
+</p>
 
 
 #### Citation
@@ -82,7 +109,6 @@ Please cite caerus in your publications if this is useful for your research. Her
 * https://github.com/erdogant/caerus
 
 ### Maintainer
-	Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
+	Erdogan Taskesen, github: [erdogant](https://github.com/erdogant/caerus)
 	Contributions are welcome.
-	See [LICENSE](LICENSE) for details.
 	This work is created and maintained in my free time. If you wish to buy me a <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">Coffee</a> for this work, it is very appreciated.
