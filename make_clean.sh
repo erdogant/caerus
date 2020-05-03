@@ -6,3 +6,4 @@ rm -rf __pycache__
 rm -rf .pytest_cache
 rm -rf .pylint.d
 rm -rf *.tmp
+rm -rf *.zip
