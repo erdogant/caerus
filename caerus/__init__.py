@@ -1,12 +1,4 @@
-from caerus.caerus import (
-    caerus,
-    )
-# from caerus.caerus import (
-#     fit,
-#     gridsearch,
-# 	makefig,
-    # download_example,
-# )
+from caerus.caerus import caerus
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
