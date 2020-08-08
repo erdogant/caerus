@@ -3,8 +3,9 @@
 [![Python](https://img.shields.io/pypi/pyversions/caerus)](https://img.shields.io/pypi/pyversions/caerus)
 [![PyPI Version](https://img.shields.io/pypi/v/caerus)](https://pypi.org/project/caerus/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/caerus/blob/master/LICENSE)
-[![Downloads](https://pepy.tech/badge/caerus/month)](https://pepy.tech/project/caerus/month)
 [![Donate](https://img.shields.io/badge/donate-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
+[![Downloads](https://pepy.tech/badge/caerus)](https://pepy.tech/project/caerus)
+[![Downloads](https://pepy.tech/badge/caerus/month)](https://pepy.tech/project/caerus/month)
 
 In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
 He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
