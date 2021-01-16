@@ -124,6 +124,10 @@ class caerus():
         if minperc is not None: self.minperc=minperc
         if threshold is not None: self.threshold=threshold
         if nlargest is not None: self.nlargest=nlargest
+        if verbose>=2 and self.window>X.shape[0]:
+            print('[caerus] >Warning : Window size (%.0d) is larger then number of datapoints (%.0d). Max window size is set to [%.0d]' %(self.window, X.shape[0], X.shape[0]))
+            self.window = np.minimum(self.window, X.shape[0])
+
         # Check inputs
         X = csutils._check_input(X)
         # Run over all windows
