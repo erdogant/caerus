@@ -63,7 +63,7 @@ class caerus():
         Required to optimize for the maximum depth of the local-minima.
         At the ith location, k windows (eg 50) are overlaid and the percentages are determined.
         The socre is determined by (percentage(i-start,k-stop)) >= minperc (eg 3), and normalized for the maximum number of windows used at position i.
-        In best case scenarion, all window result in percentage>minperc and will hve score 50/50=1. 
+        In best case scenarion, all window result in percentage>minperc and will hve score 50/50=1.
 
     Examples
     --------
@@ -72,8 +72,8 @@ class caerus():
     >>> X = cs.download_example()
     >>> cs.fit(X)
     >>> cs.plot()
-
     """
+
     def __init__(self, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10):
         """Initialize distfit with user-defined parameters."""
         self.window = window
@@ -144,19 +144,19 @@ class caerus():
             loc_start_best = None
             loc_stop_best = None
             print('[caerus] >Warning : No regions detected with current paramters.')
-            percok = simmat_hot.isna().sum().sum() / (simmat_hot.shape[0]*simmat_hot.shape[1])
+            percok = simmat_hot.isna().sum().sum() / (simmat_hot.shape[0] * simmat_hot.shape[1])
             plt.hist(simmat.values.flatten(), bins=50)
             plt.grid(True)
             plt.xlabel('Percentage difference (be inspired to set minperc)')
             plt.ylabel('Frequency')
             plt.title('Perctange difference distribution')
-            print('[caerus] >Warning : The majority of windows [%.1f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok*100, self.minperc))
+            print('[caerus] >Warning : The majority of windows [%.1f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok * 100, self.minperc))
         else:
             # Find regions that are local optima for the corrersponding local-minima
             [loc_start_best, loc_stop_best] = csutils._get_locs_best(X, loc_start, loc_stop)
 
         # Store
-        results={}
+        results = {}
         results['X'] = X
         results['simmat'] = simmat
         results['loc_start'] = loc_start
@@ -170,7 +170,7 @@ class caerus():
             return results
 
     # Perform gridsearch to determine best parameters
-    def gridsearch(self, X, window=np.arange(50,550,50), minperc=np.arange(1,20,1), threshold=0.25, return_as_dict=False, verbose=3):
+    def gridsearch(self, X, window=np.arange(50, 550, 50), minperc=np.arange(1, 20, 1), threshold=0.25, return_as_dict=False, verbose=3):
         """Gridsearch to find best fit.
 
         Parameters
@@ -190,17 +190,17 @@ class caerus():
             results of trades across various levels of: window x minperc
 
         """
-        if verbose>=3: print('[CAERUS] Gridsearch..')
+        if verbose>=3: print('[caerus] Gridsearch..')
         # Check inputs
         X = csutils._check_input(X)
-        verbose_tqdm = (True if verbose==0 else False)
+        verbose_tqdm = (True if (verbose==0) else False)
 
         # Start gridsearch
-        out_balance = np.zeros((len(minperc),len(window)))
-        out_trades = np.zeros((len(minperc),len(window)))
+        out_balance = np.zeros((len(minperc), len(window)))
+        out_trades = np.zeros((len(minperc), len(window)))
         # Run
-        for k in tqdm(range(0,len(window)), disable=verbose_tqdm):
-            for i in range(0,len(minperc)):
+        for k in tqdm(range(0, len(window)), disable=verbose_tqdm):
+            for i in range(0, len(minperc)):
                 # Compute start-stop locations
                 self.fit(X, window=window[k], minperc=minperc[i], threshold=threshold, nlargest=1, return_as_dict=False, verbose=0)
                 # Store
@@ -211,8 +211,8 @@ class caerus():
                 perf['invested'].iloc[region2idx(np.vstack((self.results['loc_start_best'], self.results['loc_stop_best'])).T)]=1
                 performanceMetrics = risk_performance_metrics(perf)
                 # Compute score
-                out_balance[i,k] =performanceMetrics['winning_balance']
-                out_trades[i,k]=performanceMetrics['winning_trades']
+                out_balance[i, k] = performanceMetrics['winning_balance']
+                out_trades[i, k] = performanceMetrics['winning_trades']
 
         # Store
         results = {}
@@ -225,7 +225,7 @@ class caerus():
             return results
 
     # Make final figure
-    def plot(self, threshold=None, figsize=(25,15)):
+    def plot(self, threshold=None, figsize=(25, 15)):
         """Plot results.
 
         Parameters
@@ -278,7 +278,7 @@ class caerus():
 
         # Check file exists.
         if not os.path.isfile(PATH_TO_DATA):
-            if verbose>=3: print('[classeval] Downloading example dataset..')
+            if verbose>=3: print('[caerus] Downloading example dataset..')
             wget.download(url, curpath)
 
         # Import local dataset
@@ -286,4 +286,3 @@ class caerus():
         df = pd.read_csv(PATH_TO_DATA)
         # Return
         return df[getfeat].values
-    
