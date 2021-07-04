@@ -1,9 +1,10 @@
-#--------------------------------------------------------------------------
-# Name        : caerus.py
-# Author      : E.Taskesen
-# Contact     : erdogant@gmail.com
-# Date        : May. 2020
-#--------------------------------------------------------------------------
+"""References.
+
+Name : caerus.py
+Author : E.Taskesen
+Contact : erdogant@gmail.com
+Date : May 2020
+"""
 
 # %% Libraries
 import caerus.utils.csutils as csutils
