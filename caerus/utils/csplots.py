@@ -40,6 +40,7 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
     loc_stop_best = out['loc_stop_best']
     simmat = out['simmat']
 
+    # Top plot
     # agg = out['agg']
     [fig,(ax1,ax2,ax3)]=plt.subplots(3,1, figsize=figsize)
     # Make heatmap
@@ -68,13 +69,14 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
     ax2.set_ylabel('Cummulative\n#success windows')
     ax2.set_xlim(0,simmat.shape[0])
     ax2.hlines(threshold,0,simmat.shape[0], linestyles='--', colors='r')
-    ax2.vlines(loc_start_best,0,1, linestyles='--', colors='g')
-    ax2.vlines(loc_stop_best,0,1, linestyles='--', colors='r')
 
-    # Plot local minima-maxima
+    # Plot local maxima
     if loc_stop_best is not None:
+        ax2.vlines(loc_stop_best,0,1, linestyles='--', colors='r')
         ax3.plot(df.iloc[loc_stop_best],'or', linewidth=1)
+    # Plot local minima
     if loc_start_best is not None:
+        ax2.vlines(loc_start_best,0,1, linestyles='--', colors='g')
         ax3.plot(df.iloc[loc_start_best],'og', linewidth=1)
 
         for i in range(0,len(loc_start)):
@@ -90,7 +92,9 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
     ax3.set_xlabel('Time')
     ax3.grid(True)
     ax3.set_xlim(0,simmat.shape[0])
-    ax3.vlines(loc_start_best,df.min(),df.max(), linestyles='--', colors='g')
-    ax3.vlines(loc_stop_best,df.min(),df.max(), linestyles='--', colors='r')
+    if loc_start_best is not None:
+        ax3.vlines(loc_start_best,df.min(),df.max(), linestyles='--', colors='g')
+    if loc_stop_best is not None:
+        ax3.vlines(loc_stop_best,df.min(),df.max(), linestyles='--', colors='r')
     plt.show()
-    return fig    
+    return fig
