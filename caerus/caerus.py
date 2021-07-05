@@ -119,6 +119,8 @@ class caerus():
             list of indexes containing the best stopping positions
         agg : 1D array-like
             Aggregated 1D array
+        df : pd.DataFrame
+            Results in the form of a dataframe.
         verbose : Int, [0..5]. Default : 3
             The higher the number, the more information is printed.
             0: None, 1: ERROR, 2: WARN, 3: INFO, 4: DEBUG, 5 : TRACE
@@ -168,6 +170,7 @@ class caerus():
         results['loc_start_best'] = loc_start_best
         results['loc_stop_best'] = loc_stop_best
         results['agg'] = outagg
+        results['df'] = csutils.to_df(results)
         # Store in self
         self.results = results
         if return_as_dict:
