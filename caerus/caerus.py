@@ -87,7 +87,7 @@ class caerus():
         self.extb = extb
         self.extf = extf
 
-    def fit(self, X, window=None, minperc=None, threshold=None, nlargest=None, return_as_dict=False, verbose=3):
+    def fit(self, X, window=None, minperc=None, threshold=None, nlargest=None, return_as_dict=True, verbose=3):
         """Detect optimal optima and minima.
 
         Parameters
