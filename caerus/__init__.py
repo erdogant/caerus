@@ -2,7 +2,7 @@ from caerus.caerus import caerus
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 # module level doc-string
 __doc__ = """
@@ -29,8 +29,10 @@ Examples
 >>> from caerus import caerus
 >>> cs = caerus()
 >>> X = cs.download_example()
->>> cs.fit(X)
+>>> results = cs.fit(X)
 >>> fig = cs.plot()
+>>> # Results in the dataframe
+>>> results['df']
 
 References
 ----------
