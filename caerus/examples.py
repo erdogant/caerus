@@ -17,7 +17,7 @@ cs.plot()
 from caerus import caerus
 cs = caerus()
 X = cs.download_example(name='btc')
-cs = caerus(minperc=1, window=100)
+cs = caerus(minperc=5, window=10)
 cs.fit(X)
 cs.plot()
 
@@ -25,6 +25,13 @@ cs.plot()
 # %% Import class
 from caerus import caerus
 cs = caerus(minperc=1)
+X = cs.download_example(name='btc')
+cs.fit(X)
+cs.plot()
+
+# %%
+from caerus import caerus
+cs = caerus(minperc=4)
 X = cs.download_example(name='btc')
 cs.fit(X)
 cs.plot()
