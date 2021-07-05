@@ -1,4 +1,4 @@
-"""This code is part of caerus and is not designed for usage of seperate parts."""
+"""This code is part of caerus and is not designed for usage in other code."""
 #--------------------------------------------------------------------------
 # Name        : caerus.py
 # Author      : E.Taskesen
@@ -9,6 +9,28 @@
 import caerus.utils.csutils as csutils
 import matplotlib.pyplot as plt
 import numpy as np
+
+# %%
+def _plot_graph(out, figsize=(15,8)):
+    df = out['df']
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot(df['X'].loc[df['peak']], 'or', linewidth=1)
+    ax.plot(df['X'].loc[df['valley']], 'og', linewidth=1)
+    ax.plot(df['X'], 'k', linewidth=0.5)
+    ax.vlines(np.where(df['peak'])[0], df['X'].min(), df['X'].max(), linestyles='--', colors='r')
+    ax.vlines(np.where(df['valley'])[0], df['X'].min(), df['X'].max(), linestyles='--', colors='g')
+    
+    uilabx = np.unique(df['labx'])
+    for labx in uilabx:
+        if labx>0:
+            Iloc = df['labx']==labx
+            plt.plot(np.where(Iloc)[0], df['X'].loc[Iloc].values, marker='.', linewidth=0.1)
+
+    ax.set_ylabel('Input value')
+    ax.set_xlabel('Time')
+    ax.grid(True)
+
+    return ax
 
 # %%
 def _plot_gridsearch(out, figsize=(15,8)):
@@ -42,7 +64,7 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
 
     # Top plot
     # agg = out['agg']
-    [fig,(ax1,ax2,ax3)]=plt.subplots(3,1, figsize=figsize)
+    fig, (ax1,ax2,ax3) = plt.subplots(3,1, figsize=figsize)
     # Make heatmap
     ax1.matshow(np.flipud(simmat.T))
     ax1.set_aspect('auto')
@@ -81,8 +103,6 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
 
         for i in range(0,len(loc_start)):
             ax3.plot(df.iloc[np.arange(loc_start[i][0],loc_start[i][1])],'g', linewidth=2)
-            # ax3.plot(df.iloc[np.arange(loc_stop[i][0],loc_stop[i][1])],'r', linewidth=2)
-            # ax3.plot(df.iloc[loc_stop[i]], 'or', linewidth=2)
             for k in range(0,len(loc_stop[i])):
                 ax3.plot(df.iloc[np.arange(loc_stop[i][k][0],loc_stop[i][k][1])],'r', linewidth=2)
     # Plot region-minima-maxima
