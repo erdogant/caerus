@@ -65,7 +65,9 @@ class caerus():
         Required to optimize for the maximum depth of the local-minima.
         At the ith location, k windows (eg 50) are overlaid and the percentages are determined.
         The socre is determined by (percentage(i-start,k-stop)) >= minperc (eg 3), and normalized for the maximum number of windows used at position i.
-        In best case scenarion, all window result in percentage>minperc and will hve score 50/50=1.
+        In best case scenarion, all window result in percentage>minperc and will have score 50/50=1.
+    return_as_dict : Bool (default : True)
+        Return results in a dictionary.
 
     Examples
     --------
@@ -127,7 +129,7 @@ class caerus():
         if threshold is not None: self.threshold=threshold
         if nlargest is not None: self.nlargest=nlargest
         if verbose>=2 and self.window>X.shape[0]:
-            print('[caerus] >Warning : Window size (%.0d) is larger then number of datapoints (%.0d). Max window size is set to [%.0d]' %(self.window, X.shape[0], X.shape[0]))
+            print('[caerus] >Window size (%.0d) is larger then number of datapoints (%.0d). Max window size is set to [%.0d]' %(self.window, X.shape[0], X.shape[0]))
             self.window = np.minimum(self.window, X.shape[0])
 
         # Check inputs
@@ -145,14 +147,14 @@ class caerus():
         if loc_start is None:
             loc_start_best = None
             loc_stop_best = None
-            print('[caerus] >Warning : No regions detected with current paramters.')
+            print('[caerus] >No regions detected with current paramters.')
             percok = simmat_hot.isna().sum().sum() / (simmat_hot.shape[0] * simmat_hot.shape[1])
             plt.hist(simmat.values.flatten(), bins=50)
             plt.grid(True)
             plt.xlabel('Percentage difference (be inspired to set minperc)')
             plt.ylabel('Frequency')
             plt.title('Perctange difference distribution')
-            print('[caerus] >Warning : The majority of windows [%.1f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok * 100, self.minperc))
+            print('[caerus] >The majority of windows [%.1f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok * 100, self.minperc))
         else:
             # Find regions that are local optima for the corrersponding local-minima
             [loc_start_best, loc_stop_best] = csutils._get_locs_best(X, loc_start, loc_stop)
