@@ -147,7 +147,9 @@ def _regions_detect_stop(out, locs_start, nlargest, extb=5, extf=5, verbose=0):
             # Compute mean percentages per region and sort accordingly
             loc_mean_percentage=[]
             for p in range(0,len(getloc)):
-                loc_mean_percentage.append(np.nanmean(out.iloc[getloc[p][0]:getloc[p][1]+1,:]))
+                xtmp = out.iloc[getloc[p][0]:getloc[p][1]+1,:]
+                meanPerc = np.nanmean(xtmp)
+                loc_mean_percentage.append(meanPerc)
             loc_mean_percentage=np.array(loc_mean_percentage)
             idx=np.argsort(loc_mean_percentage)[::-1]
             getloc=np.array(getloc)[idx]
