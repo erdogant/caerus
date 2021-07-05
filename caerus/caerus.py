@@ -18,6 +18,7 @@ from caerus.utils.risk_performance_metrics import risk_performance_metrics
 import wget
 import os
 import matplotlib.pyplot as plt
+pd.options.mode.chained_assignment = None  # default='warn'
 
 
 # Class

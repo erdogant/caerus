@@ -10,6 +10,8 @@ from caerus.utils.ones2idx import ones2region, idx2region
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+import warnings
+warnings.filterwarnings(action='ignore', message='Mean of empty slice')
 
 # %% utils
 def _check_input(X):
