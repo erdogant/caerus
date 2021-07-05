@@ -177,3 +177,25 @@ def _percentage_getdiff(current_price, previous_price):
         diff_perc=-(previous_price-current_price)/previous_price*100
     
     return(diff_perc)
+
+
+# %% Create labels
+def to_df(results):
+    df = pd.DataFrame(data=results['X'], columns=['X'])
+    df['labx']=0
+    df['peak']=False
+    df['valley']=False
+
+    # Stop = peak
+    df['peak'].iloc[results['loc_stop_best']]=True
+    # Start = Valley
+    df['valley'].iloc[results['loc_start_best']]=True
+
+    for i in range(0, len(results['loc_start'])):
+        idx_valley = np.arange(results['loc_start'][i][0], results['loc_start'][i][1])
+        df['labx'].iloc[idx_valley]=i+1
+
+        for k in range(0,len(results['loc_stop'][i])):
+            df['labx'].iloc[np.arange(results['loc_stop'][i][k][0], results['loc_stop'][i][k][1])]=i+1
+
+    return df
