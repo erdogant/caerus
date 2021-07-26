@@ -187,15 +187,17 @@ def to_df(results):
     df['valley']=False
 
     # Stop = peak
-    df['peak'].iloc[results['loc_stop_best']]=True
+    if results['loc_stop_best'] is not None:
+        df['peak'].iloc[results['loc_stop_best']]=True
     # Start = Valley
-    df['valley'].iloc[results['loc_start_best']]=True
+    if results['loc_start_best'] is not None:
+        df['valley'].iloc[results['loc_start_best']]=True
 
-    for i in range(0, len(results['loc_start'])):
-        idx_valley = np.arange(results['loc_start'][i][0], results['loc_start'][i][1])
-        df['labx'].iloc[idx_valley]=i+1
+        for i in range(0, len(results['loc_start'])):
+            idx_valley = np.arange(results['loc_start'][i][0], results['loc_start'][i][1])
+            df['labx'].iloc[idx_valley]=i+1
 
-        for k in range(0,len(results['loc_stop'][i])):
-            df['labx'].iloc[np.arange(results['loc_stop'][i][k][0], results['loc_stop'][i][k][1])]=i+1
+            for k in range(0,len(results['loc_stop'][i])):
+                df['labx'].iloc[np.arange(results['loc_stop'][i][k][0], results['loc_stop'][i][k][1])]=i+1
 
     return df

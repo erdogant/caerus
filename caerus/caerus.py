@@ -149,14 +149,14 @@ class caerus():
         if loc_start is None:
             loc_start_best = None
             loc_stop_best = None
-            print('[caerus] >No regions detected with current paramters.')
+            if verbose>=3: print('[caerus] >No regions detected with current paramters.')
             percok = simmat_hot.isna().sum().sum() / (simmat_hot.shape[0] * simmat_hot.shape[1])
             plt.hist(simmat.values.flatten(), bins=50)
             plt.grid(True)
             plt.xlabel('Percentage difference (be inspired to set minperc)')
             plt.ylabel('Frequency')
             plt.title('Perctange difference distribution')
-            print('[caerus] >The majority of windows [%.1f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok * 100, self.minperc))
+            if verbose>=2: print('[caerus] >Warning >[%.0f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok * 100, self.minperc))
         else:
             # Find regions that are local optima for the corrersponding local-minima
             [loc_start_best, loc_stop_best] = csutils._get_locs_best(X, loc_start, loc_stop)
