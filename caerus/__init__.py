@@ -2,7 +2,7 @@ from caerus.caerus import caerus
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 
 # module level doc-string
 __doc__ = """
@@ -36,7 +36,7 @@ Examples
 
 References
 ----------
-8 https://github.com/erdogant/caerus
+* https://github.com/erdogant/caerus
 * https://github.com/erdogant/findpeaks
 
 """
