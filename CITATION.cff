@@ -1,0 +1,24 @@
+# YAML 1.2
+---
+authors: 
+  -
+    family-names: Taskesen
+    given-names: Erdogan
+    orcid: "https://orcid.org/0000-0002-3430-9618"
+cff-version: "1.1.0"
+date-released: 2020-10-07
+keywords: 
+  - "python"
+  - "time-series"
+  - "trading-strategies"
+  - "stock-data"
+  - "optimization-algorithms"
+  - "peak-detection"
+  - "peak-analysis"
+  - "time-series-analysis"
+license: "MIT"
+message: "If you use this software, please cite it using these metadata."
+repository-code: "https://github.com/erdogant/caerus"
+title: "caerus is for the detection of local minima and maxima in time-series analysis."
+version: "0.1.0"
+...
