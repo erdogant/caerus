@@ -6,6 +6,7 @@
 [![Downloads](https://pepy.tech/badge/caerus)](https://pepy.tech/project/caerus)
 [![Downloads](https://pepy.tech/badge/caerus/month)](https://pepy.tech/project/caerus/month)
 [![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)
+[![DOI](https://zenodo.org/badge/230082801.svg)](https://zenodo.org/badge/latestdoi/230082801)
 <!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
@@ -96,21 +97,11 @@ cs.plot()
 </p>
 
 
-#### Citation
-Please cite caerus in your publications if this is useful for your research. Here is an example BibTeX entry:
-```BibTeX
-@misc{erdogant2020caerus,
-  title={caerus},
-  author={Erdogan Taskesen},
-  year={2020},
-  howpublished={\url{https://github.com/erdogant/caerus}},
-}
-```
+### Maintainer
+	Erdogan Taskesen, github: [erdogant](https://github.com/erdogant/caerus)
+	Please cite in your publications if this is useful for your research (see citation).
+	Contributions are welcome.
+	This work is created and maintained in my free time. If you wish to buy me a <a href="https://www.buymeacoffee.com/erdogant">Coffee</a> for this work, it is very appreciated.
 
 #### References
 * https://github.com/erdogant/caerus
-
-### Maintainer
-	Erdogan Taskesen, github: [erdogant](https://github.com/erdogant/caerus)
-	Contributions are welcome.
-	This work is created and maintained in my free time. If you wish to buy me a <a href="https://www.buymeacoffee.com/erdogant">Coffee</a> for this work, it is very appreciated.
