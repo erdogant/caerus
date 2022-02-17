@@ -5,13 +5,13 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/caerus/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/caerus)](https://pepy.tech/project/caerus)
 [![Downloads](https://pepy.tech/badge/caerus/month)](https://pepy.tech/project/caerus/month)
-[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)
+<!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
 <!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
 He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.
 
-**caerus** is a python package providing that determines the local-minima with the corresponding local-maxima within the given time-frame. The method is build
+``caerus`` is a python package providing that determines the local-minima with the corresponding local-maxima within the given time-frame. The method is build
 using a forward rolling window to iteratively evaluate thousands of windows. For each window a score of percentages is computed from the start-to-stop
 position. The resulting matrix is a [window x length dataframe] for which only the high scoring percentages, e.g. those above a certain value (minperc) are
 used. The best scoring percentages is then aggregated by sum per time-point followed by a cut using the threshold. The resulting regions are subsequently
@@ -24,13 +24,11 @@ Here are just a few of the things that caerus does well:
     - Parameter gridsearch.
     - Designed for the detection of complex trend movements.
     
-    
-### Contents
-- [Installation](#-installation)
-- [Contribute](#-contribute)
-- [Citation](#-citation)
-- [Maintainers](#-maintainers)
-- [License](#-copyright)
+
+# 
+**Star this repo if you like it! ⭐️**
+#
+
 
 ### Installation
 * Install caerus from PyPI (recommended). caerus is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
