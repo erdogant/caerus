@@ -85,9 +85,6 @@ This project is at a very early stage. It needs some love! ❤️
 Contribute to this project by feature requests, idea discussions, reporting bugs, opening pull requests, or through Github Sponsors. Your help is highly appreciated.
 
 [![Github Sponsors](https://img.shields.io/github/sponsors/erdogant?label=github%20sponsors&logo=github%20sponsors&style=for-the-badge)](https://github.com/sponsors/erdogant)
-
-### References
-* https://en.wikipedia.org/wiki/Multi-armed_bandit
    
 ### Maintainers
 * Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
