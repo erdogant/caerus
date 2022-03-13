@@ -78,6 +78,12 @@ On the [documentation pages](https://erdogant.github.io/caerus/) you can find de
 <hr>
 
 
+### Support
+
+This project is at a very early stage. It needs some love! ❤️
+
+Contribute to this project by feature requests, idea discussions, reporting bugs, opening pull requests, or through Github Sponsors. Your help is highly appreciated.
+
 [![Github Sponsors](https://img.shields.io/github/sponsors/erdogant?label=github%20sponsors&logo=github%20sponsors&style=for-the-badge)](https://github.com/sponsors/erdogant)
 
 ### References
