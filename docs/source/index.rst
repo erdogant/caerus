@@ -4,12 +4,22 @@ caerus's documentation!
 ``caerus`` is Python package to compute the local-minima with the corresponding local-maxima within the given time-frame.
 This approach is designed to for stock-market valley and peak detection.
 
-Here are just a few of the things that caerus does well: 
-	
-	* Detects start-stop regions of local minima and maxima.
+**Here are just a few of the things that caerus does well:**
+
+	* Detects peaks and valleys in complex trends.
 	* Insightful plots. 
 	* Parameter gridsearch.
-	* Designed for the detection of complex trend movements such as in stockmarket data.
+	* Designed for trend movements such as as in stockmarket data.
+
+
+.. |fig1| image:: ../figs/figure_btc_last_300days.png
+
+.. table:: Facebook stockmarket data
+   :align: center
+
+   +----------+
+   | |fig1|   |
+   +----------+
 
 
 Content
