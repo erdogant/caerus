@@ -16,24 +16,24 @@ cs.plot()
 # %% Import class
 from caerus import caerus
 cs = caerus()
-X = cs.download_example(name='btc')
-cs = caerus()
-# cs = caerus(minperc=10, window=10)
-cs.fit(X)
+X = cs.download_example(name='bitcoin')
+# cs = caerus()
+cs = caerus(window=200)
+cs.fit(X[-300:])
 cs.plot()
 
 
 # %% Import class
 from caerus import caerus
 cs = caerus(minperc=1)
-X = cs.download_example(name='btc')
+X = cs.download_example(name='bitcoin')
 cs.fit(X)
 cs.plot()
 
 # %%
 from caerus import caerus
 cs = caerus(minperc=4)
-X = cs.download_example(name='btc')
+X = cs.download_example(name='bitcoin')
 cs.fit(X)
 cs.plot()
 
