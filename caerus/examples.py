@@ -17,7 +17,8 @@ cs.plot()
 from caerus import caerus
 cs = caerus()
 X = cs.download_example(name='btc')
-cs = caerus(minperc=5, window=10)
+cs = caerus()
+# cs = caerus(minperc=10, window=10)
 cs.fit(X)
 cs.plot()
 
