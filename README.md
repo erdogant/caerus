@@ -77,6 +77,9 @@ On the [documentation pages](https://erdogant.github.io/caerus/) you can find de
 
 <hr>
 
+
+[![Github Sponsors](https://img.shields.io/github/sponsors/erdogant?label=github%20sponsors&logo=github%20sponsors&style=for-the-badge)](https://github.com/sponsors/erdogant)
+
 ### References
 * https://en.wikipedia.org/wiki/Multi-armed_bandit
    
