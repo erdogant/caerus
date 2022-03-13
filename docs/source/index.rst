@@ -14,7 +14,7 @@ This approach is designed to for stock-market valley and peak detection.
 
 .. |fig1| image:: ../figs/figure_btc_last_300days.png
 
-.. table:: Facebook stockmarket data
+.. table:: Bitcoin
    :align: center
 
    +----------+

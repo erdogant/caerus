@@ -48,7 +48,7 @@ We will check whether the votes are fraudulent based on benfords distribution.
 
 .. |fig1| image:: ../figs/figure_fb.png
 
-.. table:: Facebook stockmarket data
+.. table:: Facebook data
    :align: center
 
    +----------+
@@ -100,6 +100,11 @@ The higher the threshold cut-off, the better the peaks and valleys.
 .. code:: python
 	
 	# Set the threshold higher
+
+	# Top figure
+	cs = caerus(threshold=0.025)
+
+	# Bottom figure
 	cs = caerus(threshold=0.9)
 
 	# Search last 300 datapoints
@@ -113,7 +118,7 @@ The higher the threshold cut-off, the better the peaks and valleys.
 .. |fig3| image:: ../figs/figure_btc_last_300days_new.png
 .. |fig4| image:: ../figs/figure_btc_last_300days_new_th.png
 
-.. table:: Higher threshold results in stronger peaks/valleys
+.. table:: Top figure with threshold 0.25 and bottom with 0.9.
    :align: center
 
    +----------+
@@ -126,7 +131,7 @@ The higher the threshold cut-off, the better the peaks and valleys.
 Window effect
 *********************
 
-The ``window`` size is used to determine whether there is an increase in percentage, it is the distance of start location + window.
+The ``window`` size is used to determine the change in percentages. It is computed by the distance of start location + window.
 A smaller window size is able to pickup better **local** minima, and larger window sizes will stress more on the **global** minma.
 See below a demontration where the window size is increased. The figures clearly shows (top figures) that the windows are larger as the detected regions become more horizontal.
 
