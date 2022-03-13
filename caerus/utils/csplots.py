@@ -5,10 +5,11 @@
 # Contact     : erdogant@gmail.com
 # Date        : May. 2020
 #--------------------------------------------------------------------------
-
+import warnings
 import caerus.utils.csutils as csutils
 import matplotlib.pyplot as plt
 import numpy as np
+warnings.filterwarnings('ignore')
 
 # %%
 def _plot_graph(out, figsize=(15,8)):

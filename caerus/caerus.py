@@ -7,6 +7,7 @@ Date : May 2020
 """
 
 # %% Libraries
+import warnings
 import caerus.utils.csutils as csutils
 import caerus.utils.csplots as csplots
 import pandas as pd
@@ -19,6 +20,7 @@ import wget
 import os
 import matplotlib.pyplot as plt
 pd.options.mode.chained_assignment = None  # default='warn'
+warnings.filterwarnings('ignore')
 
 
 # Class

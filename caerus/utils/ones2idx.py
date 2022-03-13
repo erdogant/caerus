@@ -45,7 +45,9 @@
 # Date        : March. 2019
 #--------------------------------------------------------------------------
 
+import warnings
 import numpy as np
+warnings.filterwarnings('ignore')
 
 #%% Convert to index
 def ones2region(data, value=1):
