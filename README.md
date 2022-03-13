@@ -16,7 +16,7 @@ Here are just a few of the things that caerus does well:
     - Figures are created.
     - Parameter gridsearch.
     - Designed for the detection of complex trend movements.
-    
+
 # 
 **⭐️ Star this repo if you like it ⭐️**
 #
@@ -80,7 +80,7 @@ On the [documentation pages](https://erdogant.github.io/caerus/) you can find de
 
 ### Support
 
-This project is at a very early stage. It needs some love! ❤️
+This project needs some love! ❤️
 
 Contribute to this project by feature requests, idea discussions, reporting bugs, opening pull requests, or through Github Sponsors. Your help is highly appreciated.
 
