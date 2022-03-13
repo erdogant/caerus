@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API References &mdash; caerus caerus documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Coding quality" href="Coding%20quality.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> caerus
+          </a>
+              <div class="version">
+                0.1.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Background.html">Mythology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Background.html#method">Method</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html#module-caerus.caerus.caerus.plot">Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html#module-caerus.caerus.caerus.gridsearch">Gridsearch</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Detect valleys and peaks in stockmarket data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#gridsearch">Gridsearch</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Sponsor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a></li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">caerus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>API References</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/caerus.caerus.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-caerus.caerus">
+<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-caerus.caerus" title="Permalink to this headline"></a></h1>
+<p>References.</p>
+<p>Name : caerus.py
+Author : E.Taskesen
+Contact : <a class="reference external" href="mailto:erdogant&#37;&#52;&#48;gmail&#46;com">erdogant<span>&#64;</span>gmail<span>&#46;</span>com</a>
+Date : May 2020</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="caerus.caerus.caerus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">caerus.caerus.</span></span><span class="sig-name descname"><span class="pre">caerus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minperc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlargest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#caerus.caerus.caerus" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the local minima with the corresponding local-maxima within the given time-frame.</p>
+<p>In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
+He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.</p>
+<p><strong>caerus</strong> is a python package providing that determines the local-minima with
+the corresponding local-maxima within the given time-frame. The method is build
+using a forward rolling window to iteratively evaluate thousands of windows.
+For each window a score of percentages is computed from the start-to-stop
+position. The resulting matrix is a [window x length dataframe] for which only
+the high scoring percentages, e.g. those above a certain value (minperc) are
+used. The best scoring percentages is then aggregated by sum per time-point
+followed by a cut using the threshold. The resulting regions are subsequently
+detected, and represent the starting-locations of the trade. The stop-locations
+are determined based on the distance and percentage of te start-locations.
+As an example, if you want to have best regions, use threshold=1, minperc=high
+and nlargest=1 (small).</p>
+<dl class="simple">
+<dt>Here are just a few of the things that caerus does well:</dt><dd><ul class="simple">
+<li><p>Ouput contains detected start-stop regions of local minima and maxima.</p></li>
+<li><p>Figures are created.</p></li>
+<li><p>Parameter gridsearch.</p></li>
+<li><p>Designed for the detection of complex trend movements.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window</strong> (<em>int</em><em> [</em><em>1</em><em>,</em><em>..</em><em>,</em><em>len</em><em>(</em><em>X</em><em>)</em><em>]</em><em>, </em><em>default : 50</em>) – Window size that is used to determine whether there is an increase in percentage. start location + window.
+50 : (default) Smaller window size is able to pickup better local-minima.
+1000 : Larger window size will more stress on global minma.</p></li>
+<li><p><strong>minperc</strong> (<em>float</em><em> [</em><em>0</em><em>,</em><em>..</em><em>,</em><em>100</em><em>]</em><em>, </em><em>default : 3</em>) – Minimum percentage to declare a starting position with window relevant.
+Note that nlargest is used to identify the top n largest percentages as stopping location.</p></li>
+<li><p><strong>nlargest</strong> (<em>float</em><em> [</em><em>1</em><em>,</em><em>..</em><em>,</em><em>inf</em><em>]</em><em>, </em><em>default : 10</em>) – Identify the top n percentages, and thus stop-regions (couples to start-region).
+The larger this number, the larger the stop-region untill it is limited by minperc.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em> [</em><em>0</em><em>,</em><em>..</em><em>,</em><em>1</em><em>]</em><em>, </em><em>default : 0.25</em>) – Required to optimize for the maximum depth of the local-minima.
+At the ith location, k windows (eg 50) are overlaid and the percentages are determined.
+The socre is determined by (percentage(i-start,k-stop)) &gt;= minperc (eg 3), and normalized for the maximum number of windows used at position i.
+In best case scenarion, all window result in percentage&gt;minperc and will have score 50/50=1.</p></li>
+<li><p><strong>return_as_dict</strong> (<em>Bool</em><em> (</em><em>default : True</em><em>)</em>) – Return results in a dictionary.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">caerus</span> <span class="kn">import</span> <span class="n">caerus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">caerus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">download_example</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="caerus.caerus.caerus.download_example">
+<span class="sig-name descname"><span class="pre">download_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'btc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#caerus.caerus.caerus.download_example" title="Permalink to this definition"></a></dt>
+<dd><p>Import example dataset from github.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the file to download.</p></li>
+<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>optional</em>) – Print message to screen. The default is 3.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple containing dataset and response variable (X,y).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="caerus.caerus.caerus.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minperc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlargest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_as_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#caerus.caerus.caerus.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Detect optimal optima and minima.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like : 1D array.</em>) – Data such as stock prices in a 1D vector.</p></li>
+<li><p><strong>verbose</strong> (<em>Int</em><em>, </em><em>[</em><em>0..5</em><em>]</em><em>. The higher the number</em><em>, </em><em>the more information is printed.</em>) – 0: None,  1: ERROR,  2: WARN,  3: INFO (default),  4: DEBUG, 5 : TRACE</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – 1D array should be of type 1D numpy array or list.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>Object.</em></p></li>
+<li><p><strong>X</strong> (<em>array-like : 1D array.</em>) – Input 1D vector.</p></li>
+<li><p><strong>simmat</strong> (<em>np.array</em>) – Simmilarity matrix</p></li>
+<li><p><strong>loc_start</strong> (<em>list of int</em>) – list of indexes containing start positions</p></li>
+<li><p><strong>loc_stop</strong> (<em>list of int</em>) – list of indexes containing stop positions</p></li>
+<li><p><strong>loc_start_best</strong> (<em>list of int</em>) – list of indexes containing the best starting positions</p></li>
+<li><p><strong>loc_stop_best</strong> (<em>list of int</em>) – list of indexes containing the best stopping positions</p></li>
+<li><p><strong>agg</strong> (<em>1D array-like</em>) – Aggregated 1D array</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Results in the form of a dataframe.</p></li>
+<li><p><strong>verbose</strong> (<em>Int, [0..5]. Default : 3</em>) – The higher the number, the more information is printed.
+0: None, 1: ERROR, 2: WARN, 3: INFO, 4: DEBUG, 5 : TRACE</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="caerus.caerus.caerus.gridsearch">
+<span class="sig-name descname"><span class="pre">gridsearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([50,</span> <span class="pre">100,</span> <span class="pre">150,</span> <span class="pre">200,</span> <span class="pre">250,</span> <span class="pre">300,</span> <span class="pre">350,</span> <span class="pre">400,</span> <span class="pre">450,</span> <span class="pre">500])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minperc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">11,</span> <span class="pre">12,</span> <span class="pre">13,</span> <span class="pre">14,</span> <span class="pre">15,</span> <span class="pre">16,</span> <span class="pre">17,</span> <span class="pre">18,</span> <span class="pre">19])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_as_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#caerus.caerus.caerus.gridsearch" title="Permalink to this definition"></a></dt>
+<dd><p>Gridsearch to find best fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like : 1D array.</em>) – Input 1D vector.</p></li>
+<li><p><strong>verbose</strong> (<em>Int</em><em>, </em><em>[</em><em>0..5</em><em>]</em><em>. Default : 3</em>) – The higher the number, the more information is printed.
+0: None, 1: ERROR, 2: WARN, 3: INFO, 4: DEBUG, 5 : TRACE</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Object containing dict with key [‘gridsearch’] such as cs.gridsearch</em></p></li>
+<li><p><strong>balances</strong> (<em>np-array</em>) – results of balances across various levels of: window x minperc</p></li>
+<li><p><strong>trades</strong> (<em>np-array</em>) – results of trades across various levels of: window x minperc</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="caerus.caerus.caerus.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(25,</span> <span class="pre">15)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#caerus.caerus.caerus.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plot results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>threshold</strong> (<em>float</em><em> [</em><em>0</em><em>,</em><em>..</em><em>,</em><em>1</em><em>]</em><em>, </em><em>default : 0.25</em>) – Required to optimize for the maximum depth of the local-minima.
+At the ith location, k windows (eg 50) are overlaid and the percentages are determined.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Figure size. The default is (25,15).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr>
+<center>
+        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEADP27U&placement=erdogantgithubio" id="_carbonads_js"></script>
+</center>
+<hr></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Coding%20quality.html" class="btn btn-neutral float-left" title="Coding quality" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
