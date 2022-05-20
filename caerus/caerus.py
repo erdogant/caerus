@@ -143,7 +143,7 @@ class caerus():
         # Keep only percentages above minimum
         simmat_hot = simmat[simmat>self.minperc]
         # Find local minima-start-locations
-        [loc_start, outagg] = csutils._regions_detect_start(simmat_hot, self.minperc, self.threshold, extb=self.extb, extf=self.extf)
+        loc_start, outagg = csutils._regions_detect_start(simmat_hot, self.minperc, self.threshold, extb=self.extb, extf=self.extf)
         # Find regions that are local optima for the corrersponding local-minima
         loc_stop = csutils._regions_detect_stop(simmat_hot, loc_start, self.nlargest, extb=self.extb, extf=self.extf, verbose=verbose)
 
@@ -161,7 +161,7 @@ class caerus():
             if verbose>=2: print('[caerus] >Warning >[%.0f%%] does not reach the minimum of %.1f%% difference. Tip: lower "minperc"' %(percok * 100, self.minperc))
         else:
             # Find regions that are local optima for the corrersponding local-minima
-            [loc_start_best, loc_stop_best] = csutils._get_locs_best(X, loc_start, loc_stop)
+            loc_start_best, loc_stop_best = csutils._get_locs_best(X, loc_start, loc_stop)
 
         # Store
         results = {}

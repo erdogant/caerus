@@ -174,16 +174,27 @@ def _percentage_getdiff(current_price, previous_price):
 
     if current_price>previous_price:
         # Increase
-        diff_perc=(current_price-previous_price)/previous_price*100
+        diff_perc=(current_price - previous_price) / previous_price * 100
     else:
         # Decrease
-        diff_perc=-(previous_price-current_price)/previous_price*100
-    
+        diff_perc=-(previous_price - current_price) / previous_price * 100
+
     return(diff_perc)
 
 
 # %% Create labels
 def to_df(results):
+    """To Pandas DataFrame.
+
+    Parameters
+    ----------
+    results : Output from the fit model.
+
+    Returns
+    -------
+    df : Pandas DataFrame.
+
+    """
     df = pd.DataFrame(data=results['X'], columns=['X'])
     df['labx']=0
     df['peak']=False
@@ -198,9 +209,9 @@ def to_df(results):
 
         for i in range(0, len(results['loc_start'])):
             idx_valley = np.arange(results['loc_start'][i][0], results['loc_start'][i][1])
-            df['labx'].iloc[idx_valley]=i+1
+            df['labx'].iloc[idx_valley] = i + 1
 
-            for k in range(0,len(results['loc_stop'][i])):
-                df['labx'].iloc[np.arange(results['loc_stop'][i][k][0], results['loc_stop'][i][k][1])]=i+1
+            for k in range(0, len(results['loc_stop'][i])):
+                df['labx'].iloc[np.arange(results['loc_stop'][i][k][0], results['loc_stop'][i][k][1])] = i + 1
 
     return df
