@@ -2,7 +2,7 @@ from caerus.caerus import caerus
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '0.1.7'
+__version__ = '0.1.8'
 
 # module level doc-string
 __doc__ = """
