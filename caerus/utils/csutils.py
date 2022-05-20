@@ -114,31 +114,33 @@ def _regions_detect_start(out, minperc, threshold, extb=5, extf=5):
 
     return(locs_start, outagg)
 
-#%% Detect stop locations based on the starting positions
+
+# %% Detect stop locations based on the starting positions
 def _regions_detect_stop(out, locs_start, nlargest, extb=5, extf=5, verbose=0):
     # Find stop-locations
     locs_stop=None
-    if not isinstance(locs_start,type(None)):
+    if not isinstance(locs_start, type(None)):
         locs_stop=[]
         # out[np.isinf(out)]=np.nan
-        
-        for i in range(0,len(locs_start)):
+
+        # for i in range(0, len(locs_start)):
+        for i, _ in enumerate(locs_start):
             if verbose>=4: print('[CAERUS] Region %s' %(i))
             # Take window sizes with maximum percentages
             # getloc=out.iloc[locs_start[i][0]:locs_start[i][1]+1,:].idxmax(axis=1)
 
             # Get window size and add to starting indexes
-            startlocs= np.arange(locs_start[i][0], locs_start[i][1]+1)
-            
+            startlocs= np.arange(locs_start[i][0], locs_start[i][1] + 1)
+
             getloc=[]
-            getpos=out.iloc[locs_start[i][0]:locs_start[i][1]+1,:]
-            
+            getpos=out.iloc[locs_start[i][0]:locs_start[i][1] + 1, :]
+
             # Run over all positions to find the top-n maximum ones
-            for k in range(0,getpos.shape[0]):
-                tmplocs = getpos.iloc[k,:].nlargest(nlargest).index.values
-                tmplocs = tmplocs+startlocs[k]
+            for k in range(0, getpos.shape[0]):
+                tmplocs = getpos.iloc[k, :].nlargest(nlargest).dropna().index.values
+                tmplocs = tmplocs + startlocs[k]
                 getloc=np.append(np.unique(getloc), tmplocs)
-            
+
             getloc = np.sort(np.unique(getloc)).astype(int)
 
             # Merge if required
@@ -147,22 +149,22 @@ def _regions_detect_stop(out, locs_start, nlargest, extb=5, extf=5, verbose=0):
 
             # Compute mean percentages per region and sort accordingly
             loc_mean_percentage=[]
-            for p in range(0,len(getloc)):
-                xtmp = out.iloc[getloc[p][0]:getloc[p][1]+1,:]
+            for p in range(0, len(getloc)):
+                xtmp = out.iloc[getloc[p][0]:getloc[p][1] + 1, :]
                 meanPerc = np.nanmean(xtmp)
                 loc_mean_percentage.append(meanPerc)
             loc_mean_percentage=np.array(loc_mean_percentage)
             idx=np.argsort(loc_mean_percentage)[::-1]
             getloc=np.array(getloc)[idx]
-            
+
             locs_stop.append(getloc.tolist())
 
     return(locs_stop)
 
 # %% Compute percentage
 def _compute_percentage(r):
-    perc=_percentage_getdiff(r[0],r[-1])
-    return(perc) 
+    perc=_percentage_getdiff(r[0], r[-1])
+    return(perc)
 
 
 # %% Compute percentage between current price and starting price
