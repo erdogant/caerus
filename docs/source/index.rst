@@ -22,6 +22,18 @@ This approach is designed to for stock-market valley and peak detection.
    +----------+
 
 
+Star is important
+======================
+If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/caerus/>`_!
+
+
+Github
+======
+`Github d3blocks <https://github.com/erdogant/caerus/>`_.
+Please report bugs, issues and feature extensions there.
+
+
+
 Content
 =======
 
@@ -69,31 +81,6 @@ Quick install
 
    pip install caerus
 
-
-
-
-Github
-------------------------------
-
-Please report bugs, issues and feature extensions there.
-Github, `erdogant/caerus <https://github.com/erdogant/caerus/>`_.
-
-
-Citing *caerus*
------------------------
-
-The bibtex can be found in the right side menu at the `github page <https://github.com/erdogant/caerus/>`_.
-
-
-Sponsor this project
-------------------------------
-
-If you like this project, **Star** this repo at the github page and become a **sponsor**!
-Read more why this is important on my sponsor page. The **sponsor button** will direct you to the sponsor github page.
-
-.. raw:: html
-
-	<iframe src="https://github.com/sponsors/erdogant/button" title="Sponsor erdogant" height="35" width="116" style="border: 0;"></iframe>
 
 
 
