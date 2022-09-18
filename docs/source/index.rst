@@ -25,7 +25,7 @@ This approach is designed to for stock-market valley and peak detection.
 
 You contribution is important
 ==============================
-If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/caerus/>`_ and have a look at the `sponser page <https://github.com/erdogant/caerus/pages/html/Documentation.html>`_!
+If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/caerus/>`_ and have a look at the `sponser page <https://erdogant.github.io/caerus/pages/html/Documentation.html>`_!
 
 
 Github
@@ -71,7 +71,7 @@ Content
   Coding quality
   caerus.caerus
 
-* :ref:`genindex`
+
 
 
 Quick install
