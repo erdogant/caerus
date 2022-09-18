@@ -15,7 +15,6 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -106,10 +105,10 @@
            <div itemprop="articleBody">
              
   <section id="detect-valleys-and-peaks-in-stockmarket-data">
-<h1>Detect valleys and peaks in stockmarket data<a class="headerlink" href="#detect-valleys-and-peaks-in-stockmarket-data" title="Permalink to this heading"></a></h1>
+<h1>Detect valleys and peaks in stockmarket data<a class="headerlink" href="#detect-valleys-and-peaks-in-stockmarket-data" title="Permalink to this headline"></a></h1>
 </section>
 <section id="facebook">
-<h1>Facebook<a class="headerlink" href="#facebook" title="Permalink to this heading"></a></h1>
+<h1>Facebook<a class="headerlink" href="#facebook" title="Permalink to this headline"></a></h1>
 <p>In the following example we load the 2016 elections data of the USA for various candidates.
 We will check whether the votes are fraudulent based on benfords distribution.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library</span>
@@ -161,7 +160,7 @@ We will check whether the votes are fraudulent based on benfords distribution.</
 </table>
 </section>
 <section id="bitcoin">
-<h1>Bitcoin<a class="headerlink" href="#bitcoin" title="Permalink to this heading"></a></h1>
+<h1>Bitcoin<a class="headerlink" href="#bitcoin" title="Permalink to this headline"></a></h1>
 <p>For demontration purposes, we will detect the peaks and valley of the <em>Bitcoin</em>.
 It can be seen that the method easily pickups the peaks and valleys at the early years, and the last years.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library</span>
@@ -192,7 +191,7 @@ It can be seen that the method easily pickups the peaks and valleys at the early
 </tbody>
 </table>
 <section id="threshold-effect">
-<h2>Threshold effect<a class="headerlink" href="#threshold-effect" title="Permalink to this heading"></a></h2>
+<h2>Threshold effect<a class="headerlink" href="#threshold-effect" title="Permalink to this headline"></a></h2>
 <p>The threshold will change the strength of peaks and valleys that detected (middle plot).
 The higher the threshold cut-off, the better the peaks and valleys.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the threshold higher</span>
@@ -224,7 +223,7 @@ The higher the threshold cut-off, the better the peaks and valleys.</p>
 </table>
 </section>
 <section id="window-effect">
-<h2>Window effect<a class="headerlink" href="#window-effect" title="Permalink to this heading"></a></h2>
+<h2>Window effect<a class="headerlink" href="#window-effect" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">window</span></code> size is used to determine the change in percentages. It is computed by the distance of start location + window.
 A smaller window size is able to pickup better <strong>local</strong> minima, and larger window sizes will stress more on the <strong>global</strong> minma.
 See below a demontration where the window size is increased. The figures clearly shows (top figures) that the windows are larger as the detected regions become more horizontal.</p>
@@ -257,7 +256,7 @@ See below a demontration where the window size is increased. The figures clearly
 </section>
 </section>
 <section id="gridsearch">
-<h1>Gridsearch<a class="headerlink" href="#gridsearch" title="Permalink to this heading"></a></h1>
+<h1>Gridsearch<a class="headerlink" href="#gridsearch" title="Permalink to this headline"></a></h1>
 <p>With the gridsearch it is possible to automatically search across various windows (<code class="docutils literal notranslate"><span class="pre">window</span></code>) and percentages (<code class="docutils literal notranslate"><span class="pre">minperc</span></code>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize</span>
 <span class="n">cs</span> <span class="o">=</span> <span class="n">caerus</span><span class="p">()</span>

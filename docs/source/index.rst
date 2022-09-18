@@ -22,9 +22,10 @@ This approach is designed to for stock-market valley and peak detection.
    +----------+
 
 
-Star is important
-======================
-If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/caerus/>`_!
+
+You contribution is important
+==============================
+If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/caerus/>`_ and have a look at the `sponser page <https://github.com/erdogant/caerus/pages/html/Documentation.html>`_!
 
 
 Github
