@@ -1,3 +1,5 @@
+.. include:: add_top.add
+
 Sponsor
 ############
 
@@ -16,10 +18,7 @@ Citing
 The bibtex can be found in the right side menu at the `github page <https://github.com/erdogant/caerus/>`_.
 
 
-.. raw:: html
 
-	<hr>
-	<center>
-		<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEADP27U&placement=erdogantgithubio" id="_carbonads_js"></script>
-	</center>
-	<hr>
+
+
+.. include:: add_bottom.add

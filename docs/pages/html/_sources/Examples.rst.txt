@@ -1,3 +1,5 @@
+.. include:: add_top.add
+
 Detect valleys and peaks in stockmarket data
 ##############################################
 
@@ -195,10 +197,6 @@ With the gridsearch it is possible to automatically search across various window
    +----------+
 
 
-.. raw:: html
 
-	<hr>
-	<center>
-		<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEADP27U&placement=erdogantgithubio" id="_carbonads_js"></script>
-	</center>
-	<hr>
+
+.. include:: add_bottom.add
