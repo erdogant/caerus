@@ -3,8 +3,6 @@ caerus's documentation!
 
 |python| |pypi| |docs| |stars| |LOC| |downloads_month| |downloads_total| |license| |forks| |open issues| |project status| |colab| |repo-size| |donate|
 
-.. include:: add_top.add
-
 
 .. |fig1| image:: ../figs/figure_btc_last_300days.png
 

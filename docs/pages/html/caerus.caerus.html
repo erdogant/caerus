@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,7 +72,16 @@
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">Github</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#caerus.caerus.caerus"><code class="docutils literal notranslate"><span class="pre">caerus</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#caerus.caerus.caerus.download_example"><code class="docutils literal notranslate"><span class="pre">caerus.download_example()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#caerus.caerus.caerus.fit"><code class="docutils literal notranslate"><span class="pre">caerus.fit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#caerus.caerus.caerus.gridsearch"><code class="docutils literal notranslate"><span class="pre">caerus.gridsearch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#caerus.caerus.caerus.plot"><code class="docutils literal notranslate"><span class="pre">caerus.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
     <a href= "genindex.html">Index</a>
@@ -100,14 +110,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <hr>
-<center>
-        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
-        <!-- Show an image ad -->
-        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
-        <div data-ea-publisher="erdogantgithubio" data-ea-type="text"></div>
-</center>
-<hr><section id="module-caerus.caerus">
+  <section id="module-caerus.caerus">
 <span id="api-references"></span><h1>API References<a class="headerlink" href="#module-caerus.caerus" title="Permalink to this heading"></a></h1>
 <p>References.</p>
 <p>Name : caerus.py
@@ -118,6 +121,8 @@ Date : May 2020</p>
 <dt class="sig sig-object py" id="caerus.caerus.caerus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">caerus.caerus.</span></span><span class="sig-name descname"><span class="pre">caerus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minperc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlargest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#caerus.caerus.caerus" title="Permalink to this definition"></a></dt>
 <dd><p>Compute the local minima with the corresponding local-maxima within the given time-frame.</p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h2>
 <p>In Greek mythology, Caerus (same as kairos) was the personification of opportunity, luck and favorable moments.
 He was shown with only one lock of hair. His Roman equivalent was Occasio or Tempus. Caerus was the youngest child of Zeus.</p>
 <p><strong>caerus</strong> is a python package providing that determines the local-minima with
@@ -142,21 +147,42 @@ and nlargest=1 (small).</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>window</strong> (<em>int</em><em> [</em><em>1</em><em>,</em><em>..</em><em>,</em><em>len</em><em>(</em><em>X</em><em>)</em><em>]</em><em>, </em><em>default : 50</em>) – Window size that is used to determine whether there is an increase in percentage. start location + window.
+<dt class="field-odd">param window</dt>
+<dd class="field-odd"><p>Window size that is used to determine whether there is an increase in percentage. start location + window.
 50 : (default) Smaller window size is able to pickup better local-minima.
-1000 : Larger window size will more stress on global minma.</p></li>
-<li><p><strong>minperc</strong> (<em>float</em><em> [</em><em>0</em><em>,</em><em>..</em><em>,</em><em>100</em><em>]</em><em>, </em><em>default : 3</em>) – Minimum percentage to declare a starting position with window relevant.
-Note that nlargest is used to identify the top n largest percentages as stopping location.</p></li>
-<li><p><strong>nlargest</strong> (<em>float</em><em> [</em><em>1</em><em>,</em><em>..</em><em>,</em><em>inf</em><em>]</em><em>, </em><em>default : 10</em>) – Identify the top n percentages, and thus stop-regions (couples to start-region).
-The larger this number, the larger the stop-region untill it is limited by minperc.</p></li>
-<li><p><strong>threshold</strong> (<em>float</em><em> [</em><em>0</em><em>,</em><em>..</em><em>,</em><em>1</em><em>]</em><em>, </em><em>default : 0.25</em>) – Required to optimize for the maximum depth of the local-minima.
+1000 : Larger window size will more stress on global minma.</p>
+</dd>
+<dt class="field-even">type window</dt>
+<dd class="field-even"><p>int [1,..,len(X)], default : 50</p>
+</dd>
+<dt class="field-odd">param minperc</dt>
+<dd class="field-odd"><p>Minimum percentage to declare a starting position with window relevant.
+Note that nlargest is used to identify the top n largest percentages as stopping location.</p>
+</dd>
+<dt class="field-even">type minperc</dt>
+<dd class="field-even"><p>float [0,..,100], default : 3</p>
+</dd>
+<dt class="field-odd">param nlargest</dt>
+<dd class="field-odd"><p>Identify the top n percentages, and thus stop-regions (couples to start-region).
+The larger this number, the larger the stop-region untill it is limited by minperc.</p>
+</dd>
+<dt class="field-even">type nlargest</dt>
+<dd class="field-even"><p>float [1,..,inf], default : 10</p>
+</dd>
+<dt class="field-odd">param threshold</dt>
+<dd class="field-odd"><p>Required to optimize for the maximum depth of the local-minima.
 At the ith location, k windows (eg 50) are overlaid and the percentages are determined.
 The socre is determined by (percentage(i-start,k-stop)) &gt;= minperc (eg 3), and normalized for the maximum number of windows used at position i.
-In best case scenarion, all window result in percentage&gt;minperc and will have score 50/50=1.</p></li>
-<li><p><strong>return_as_dict</strong> (<em>Bool</em><em> (</em><em>default : True</em><em>)</em>) – Return results in a dictionary.</p></li>
-</ul>
+In best case scenarion, all window result in percentage&gt;minperc and will have score 50/50=1.</p>
+</dd>
+<dt class="field-even">type threshold</dt>
+<dd class="field-even"><p>float [0,..,1], default : 0.25</p>
+</dd>
+<dt class="field-odd">param return_as_dict</dt>
+<dd class="field-odd"><p>Return results in a dictionary.</p>
+</dd>
+<dt class="field-even">type return_as_dict</dt>
+<dd class="field-even"><p>Bool (default : True)</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -258,6 +284,7 @@ At the ith location, k windows (eg 50) are overlaid and the percentages are dete
 </dl>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 <hr>
