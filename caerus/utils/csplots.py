@@ -11,8 +11,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 warnings.filterwarnings('ignore')
 
+
 # %%
-def _plot_graph(out, figsize=(15,8)):
+def _plot_graph(out, xlabel='Time', ylabel='Input value', figsize=(15,8)):
     df = out['df']
     fig, ax = plt.subplots(figsize=figsize)
     ax.plot(df['X'].loc[df['peak']], 'or', linewidth=1)
@@ -20,23 +21,23 @@ def _plot_graph(out, figsize=(15,8)):
     ax.plot(df['X'], 'k', linewidth=0.5)
     ax.vlines(np.where(df['peak'])[0], df['X'].min(), df['X'].max(), linestyles='--', colors='r')
     ax.vlines(np.where(df['valley'])[0], df['X'].min(), df['X'].max(), linestyles='--', colors='g')
-    
+
     uilabx = np.unique(df['labx'])
     for labx in uilabx:
         if labx>0:
             Iloc = df['labx']==labx
             plt.plot(np.where(Iloc)[0], df['X'].loc[Iloc].values, marker='.', linewidth=0.1)
 
-    ax.set_ylabel('Input value')
-    ax.set_xlabel('Time')
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel(xlabel)
     ax.grid(True)
 
     return ax
 
 # %%
-def _plot_gridsearch(out, figsize=(15,8)):
+def _plot_gridsearch(out, xlabel1='Percentage', ylabel1='winning_balance', xlabel2='Percentage', ylabel2='Nr Trades', figsize=(15,8)):
     # Make figure
-    [fig,(ax1,ax2)]=plt.subplots(2,1, figsize=figsize)
+    fig, (ax1, ax2) = plt.subplots(2,1, figsize=figsize)
 
     # Make plots across the gridsearch
     for k in range(0,len(out['window'])):
@@ -47,15 +48,15 @@ def _plot_gridsearch(out, figsize=(15,8)):
 
     # ax1.legend()
     ax1.grid(True)
-    ax1.set_xlabel('Percentage')
-    ax1.set_ylabel('winning_balance')
+    ax1.set_xlabel(xlabel1)
+    ax1.set_ylabel(ylabel1)
     ax2.grid(True)
-    ax2.set_xlabel('Percentage')
-    ax2.set_ylabel('Nr Trades')
+    ax2.set_xlabel(xlabel2)
+    ax2.set_ylabel(ylabel2)
     plt.show()
 
 # Make plot
-def _plot(out, threshold=0.25, figsize=(25,15)):
+def _plot(out, threshold=0.25, xlabel='Time', ylabel='Input value', figsize=(25,15)):
     df = out['X']
     loc_start = out['loc_start']
     loc_stop = out['loc_stop']
@@ -65,21 +66,21 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
 
     # Top plot
     # agg = out['agg']
-    fig, (ax1,ax2,ax3) = plt.subplots(3,1, figsize=figsize)
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=figsize)
     # Make heatmap
     ax1.matshow(np.flipud(simmat.T))
     ax1.set_aspect('auto')
     # ax1.gca().set_aspect('auto')
     ax1.grid(False)
     ax1.set_ylabel('Perc.difference in window\n(higher=better)')
-    ax1.set_xlim(0,simmat.shape[0])
+    ax1.set_xlim(0, simmat.shape[0])
 
     xlabels = simmat.columns.values.astype(str)
-    Iloc=np.mod(simmat.columns.values,10)==0
+    Iloc=np.mod(simmat.columns.values, 10)==0
     xlabels[Iloc==False]=''
     xlabels[-1]=simmat.columns.values[-1].astype(str)
     xlabels[0]=simmat.columns.values[0].astype(str)
-    ax1.set_yticks(range(0,len(xlabels)))
+    ax1.set_yticks(range(0, len(xlabels)))
     ax1.set_yticklabels(np.flipud(xlabels))
     ax1.grid(True, axis='x')
 
@@ -90,17 +91,17 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
     ax2.plot(outagg)
     ax2.grid(True)
     ax2.set_ylabel('Cummulative\n#success windows')
-    ax2.set_xlim(0,simmat.shape[0])
-    ax2.hlines(threshold,0,simmat.shape[0], linestyles='--', colors='r')
+    ax2.set_xlim(0, simmat.shape[0])
+    ax2.hlines(threshold, 0, simmat.shape[0], linestyles='--', colors='r')
 
     # Plot local maxima
     if loc_stop_best is not None:
-        ax2.vlines(loc_stop_best,0,1, linestyles='--', colors='r')
-        ax3.plot(df.iloc[loc_stop_best],'or', linewidth=1)
+        ax2.vlines(loc_stop_best, 0, 1, linestyles='--', colors='r')
+        ax3.plot(df.iloc[loc_stop_best], 'or', linewidth=1)
     # Plot local minima
     if loc_start_best is not None:
-        ax2.vlines(loc_start_best,0,1, linestyles='--', colors='g')
-        ax3.plot(df.iloc[loc_start_best],'og', linewidth=1)
+        ax2.vlines(loc_start_best, 0, 1, linestyles='--', colors='g')
+        ax3.plot(df.iloc[loc_start_best], 'og', linewidth=1)
 
         for i in range(0,len(loc_start)):
             ax3.plot(df.iloc[np.arange(loc_start[i][0],loc_start[i][1])],'g', linewidth=2)
@@ -109,8 +110,8 @@ def _plot(out, threshold=0.25, figsize=(25,15)):
     # Plot region-minima-maxima
     ax3.plot(df,'k', linewidth=1)
 
-    ax3.set_ylabel('Input value')
-    ax3.set_xlabel('Time')
+    ax3.set_xlabel(xlabel)
+    ax3.set_ylabel(ylabel)
     ax3.grid(True)
     ax3.set_xlim(0,simmat.shape[0])
     if loc_start_best is not None:
