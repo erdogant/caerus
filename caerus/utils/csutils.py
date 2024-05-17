@@ -30,7 +30,9 @@ def _agg_scores(out, threshold=0):
     # Normalize for the window size that is used. Towards the end smaller windows are only avaialbe which is otherwise unfair for the threshold usage.
     windowCorrectionFactor = np.ones_like(outagg)*out.shape[1]
     tmpvalue = np.arange(1, out.shape[1])[::-1]
-    windowCorrectionFactor[-len(tmpvalue):]=tmpvalue
+
+    if len(tmpvalue)>0:
+        windowCorrectionFactor[-len(tmpvalue):] = tmpvalue
 
     outagg = outagg/windowCorrectionFactor
     I=outagg>threshold
