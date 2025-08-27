@@ -16,9 +16,9 @@ from tqdm import tqdm
 # Custom helpers
 from caerus.utils.ones2idx import region2idx
 from caerus.utils.risk_performance_metrics import risk_performance_metrics
-import wget
 import os
 import matplotlib.pyplot as plt
+import requests
 pd.options.mode.chained_assignment = None  # default='warn'
 warnings.filterwarnings('ignore')
 
@@ -279,7 +279,8 @@ class caerus():
             getfeat='Close'
 
         curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-        PATH_TO_DATA = os.path.join(curpath, wget.filename_from_url(url))
+        filename = os.path.basename(url)
+        PATH_TO_DATA = os.path.join(curpath, filename)
 
         # Create dir
         if not os.path.isdir(curpath):
@@ -288,7 +289,10 @@ class caerus():
         # Check file exists.
         if not os.path.isfile(PATH_TO_DATA):
             if verbose>=3: print('[caerus] Downloading example dataset..')
-            wget.download(url, curpath)
+            response = requests.get(url)
+            response.raise_for_status()
+            with open(PATH_TO_DATA, 'wb') as f:
+                f.write(response.content)
 
         # Import local dataset
         if verbose>=3: print('[caerus] Import dataset..')
