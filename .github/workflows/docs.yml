@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -38,20 +40,33 @@ jobs:
       # 5. Verify build and copy files
       - name: Verify build and copy files
         run: |
+          # Debug: Show current working directory
+          echo "=== Current working directory ==="
+          pwd
+          echo "=== Current directory contents ==="
+          ls -la
+          
           # Debug: List what was created
           echo "=== Contents of docs/pages/html ==="
           ls -la ./docs/pages/html/ || echo "docs/pages/html/ does not exist"
           
           # Create docs/pages folder if it doesn't exist
+          echo "=== Creating docs/pages directory ==="
           mkdir -p ./docs/pages
+          echo "=== docs/pages directory created ==="
+          ls -la ./docs/pages/ || echo "docs/pages/ still does not exist"
           
           # Copy built HTML files to docs/pages folder
           echo "=== Copying files ==="
-          cp -rv ./docs/pages/html/* ./docs/pages/ || echo "Copy failed"
+          cp -rv ./docs/pages/html/* ./docs/pages/ || echo "Copy failed with exit code $?"
           
           # Verify copy worked
           echo "=== Contents of docs/pages after copy ==="
           ls -la ./docs/pages/ || echo "docs/pages/ does not exist"
+          
+          # Show file sizes to verify copy
+          echo "=== File sizes in docs/pages ==="
+          du -sh ./docs/pages/ || echo "Cannot check docs/pages size"
 
       # 6. Deploy to docs/pages/ folder on main branch
       - name: Deploy to docs/pages/ folder
