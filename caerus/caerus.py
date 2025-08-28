@@ -88,8 +88,12 @@ class caerus():
     >>> cs.plot()
     """
 
-    def __init__(self, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10):
+    def __init__(self, window=50, minperc=3, nlargest=10, threshold=0.25, extb=0, extf=10, verbose='info'):
         """Initialize distfit with user-defined parameters."""
+        # Store verbose level at instance level
+        self.verbose = verbose
+        # Set the logger
+        helper.set_logger(verbose=verbose)
         self.window = window
         self.minperc = minperc
         self.nlargest = nlargest
@@ -97,15 +101,13 @@ class caerus():
         self.extb = extb
         self.extf = extf
 
-    def fit(self, X, window=None, minperc=None, threshold=None, nlargest=None, return_as_dict=True, verbose=3):
+    def fit(self, X, window=None, minperc=None, threshold=None, nlargest=None, return_as_dict=True, verbose=None):
         """Detect optimal optima and minima.
 
         Parameters
         ----------
         X : array-like : 1D array.
             Data such as stock prices in a 1D vector.
-        verbose : Int, [0..5]. The higher the number, the more information is printed.
-            0: None,  1: ERROR,  2: WARN,  3: INFO (default),  4: DEBUG, 5 : TRACE
 
         Raises
         ------
