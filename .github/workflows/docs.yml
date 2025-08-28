@@ -35,14 +35,23 @@ jobs:
           make clean
           make html
 
-      # 5. Copy built files to docs/pages/ folder on main branch
-      - name: Copy built files to docs/pages/
+      # 5. Verify build and copy files
+      - name: Verify build and copy files
         run: |
+          # Debug: List what was created
+          echo "=== Contents of docs/pages/html ==="
+          ls -la ./docs/pages/html/ || echo "docs/pages/html/ does not exist"
+          
           # Create docs/pages folder if it doesn't exist
           mkdir -p ./docs/pages
           
           # Copy built HTML files to docs/pages folder
-          cp -r ./docs/pages/html/* ./docs/pages/
+          echo "=== Copying files ==="
+          cp -rv ./docs/pages/html/* ./docs/pages/ || echo "Copy failed"
+          
+          # Verify copy worked
+          echo "=== Contents of docs/pages after copy ==="
+          ls -la ./docs/pages/ || echo "docs/pages/ does not exist"
 
       # 6. Deploy to docs/pages/ folder on main branch
       - name: Deploy to docs/pages/ folder
@@ -50,6 +59,10 @@ jobs:
           # Configure git
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
+          
+          # Debug: Show what we're about to commit
+          echo "=== Git status ==="
+          git status
           
           # Add and commit changes
           git add ./docs/pages/
