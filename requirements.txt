@@ -1,7 +1,3 @@
-#conda create -n env_caerus python=3.6
-#conda activate env_caerus
-#conda install spyder
-
 requests
 matplotlib 
 numpy 
