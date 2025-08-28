@@ -35,12 +35,24 @@ jobs:
           make clean
           make html
 
-      # 5. Deploy to GitHub Pages
+      # 5. Copy built files to temporary location (before cleaning)
+      - name: Copy built files
+        run: |
+          mkdir -p ./temp_docs
+          cp -r ./docs/pages/html/* ./temp_docs/
+
+      # 6. Clean build directory
+      - name: Clean build directory
+        working-directory: ./docs
+        run: |
+          make clean
+
+      # 7. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/pages/html
+          publish_dir: ./temp_docs
           publish_branch: gh-pages
           keep_files: true
     
