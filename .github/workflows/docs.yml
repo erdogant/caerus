@@ -35,24 +35,21 @@ jobs:
           make clean
           make html
 
-      # 5. Copy built files to temporary location (before cleaning)
-      - name: Copy built files
+      # 5. Deploy to docs/pages/ folder on main branch
+      - name: Deploy to docs/pages/ folder
         run: |
-          mkdir -p ./temp_docs
-          cp -r ./docs/pages/html/* ./temp_docs/
-
-      # 6. Clean build directory
-      - name: Clean build directory
-        working-directory: ./docs
-        run: |
-          make clean
-
-      # 7. Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./temp_docs
-          publish_branch: gh-pages
-          keep_files: true
+          # Create docs/pages folder if it doesn't exist
+          mkdir -p ./docs/pages
+          
+          # Copy built HTML files to docs/pages folder
+          cp -r ./docs/pages/html/* ./docs/pages/
+          
+          # Configure git
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          
+          # Add and commit changes
+          git add ./docs/pages/
+          git commit -m "Update Sphinx documentation" || echo "No changes"
+          git push origin main
     
