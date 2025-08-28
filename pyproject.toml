@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "caerus"
+dynamic = ["version"]
+authors = [{ name = "Erdogan Taskesen", email = "erdogant@gmail.com" },]
+description = "caerus is a Python library for peak detection."
+readme = "README.md"
+requires-python = ">=3"
+license.file = "LICENSE"
+keywords = ["Python", ""]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Operating System :: Unix",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    'numpy',
+    'matplotlib>=3.5.2',
+    'tqdm',
+    'datazets',
+]
+
+[project.urls]
+Homepage = "https://erdogant.github.io/caerus"
+Download = "https://github.com/erdogant/caerus/archive/{version}.tar.gz"
+
+#[tool.setuptools]
+#packages = ["caerus"]
+# Add the entire directory with subdirs into the package
+[tool.setuptools.packages.find]
+include = ["caerus*"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "caerus.__version__" }
