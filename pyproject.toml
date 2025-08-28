@@ -9,8 +9,8 @@ authors = [{ name = "Erdogan Taskesen", email = "erdogant@gmail.com" },]
 description = "caerus is a Python library for peak detection."
 readme = "README.md"
 requires-python = ">=3"
-license.file = "LICENSE"
-keywords = ["Python", ""]
+license = "MIT"
+keywords = ["Python", "peak detection", "signal processing", "stocks", "TA", "Technical Analysis"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Intended Audience :: Education",
@@ -20,7 +20,6 @@ classifiers = [
     "Operating System :: MacOS",
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
     'numpy',
