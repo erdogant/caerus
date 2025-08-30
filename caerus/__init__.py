@@ -4,7 +4,7 @@ import caerus.helper as helper
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 # Setup package-level logger
 _logger = logging.getLogger('caerus')

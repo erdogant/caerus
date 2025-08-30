@@ -22,9 +22,9 @@ import shutil
 # Import the package to test
 from caerus import caerus
 try:
-    import caerus.helper as helper
+    from caerus.helper import helper
 except:
-    import helper
+    import caerus.helper as helper
 
 
 class TestCaerusInitialization:

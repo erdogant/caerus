@@ -14,7 +14,6 @@ results = cs.fit(X)
 fig, axs = cs.plot(visible=False)
 fig, axs = cs.plot(visible=True)
 
-
 # %% Import class
 from caerus import caerus
 cs = caerus()
